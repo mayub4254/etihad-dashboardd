@@ -1,12 +1,206 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ETIHAD Dashboard Test</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ETIHAD — Минимальный кабинет</title>
+<style>
+  :root{--bg:#f6f8fb;--card:#fff;--accent:#2a62f5;--muted:#6b7280}
+  body{font-family:Inter,Arial,sans-serif;margin:0;background:var(--bg);color:#111}
+  .wrap{max-width:980px;margin:28px auto;padding:18px}
+  header{display:flex;align-items:center;justify-content:space-between}
+  h1{font-size:18px;margin:0}
+  .card{background:var(--card);padding:16px;border-radius:10px;box-shadow:0 6px 18px rgba(15,23,42,0.05);margin-top:14px}
+  .row{display:flex;gap:12px;align-items:center}
+  select,input{padding:10px;border-radius:8px;border:1px solid #e6e9ef}
+  button{background:var(--accent);color:#fff;padding:10px 14px;border-radius:8px;border:none;cursor:pointer}
+  .menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:12px}
+  .item{background:#fbfdff;border:1px solid #eef3ff;padding:10px;border-radius:8px}
+  .controls{display:flex;gap:8px;align-items:center;margin-top:12px}
+  table{width:100%;border-collapse:collapse;margin-top:10px}
+  th,td{padding:8px;text-align:left;border-bottom:1px solid #f1f5f9;font-size:14px}
+  .small{font-size:13px;color:var(--muted)}
+  @media(max-width:600px){.row{flex-direction:column;align-items:stretch}}
+</style>
 </head>
 <body>
-  <h1>ETIHAD Dashboard работает!</h1>
-  <p>Если ты видишь этот текст — сайт успешно запущен.</p>
+<div class="wrap">
+  <header>
+    <h1>ETIHAD — Минимальный кабинет</h1>
+    <div class="small">Демо: localStorage</div>
+  </header>
+
+  <div class="card">
+    <div class="row">
+      <div style="width:260px">
+        <label class="small">Выбрать сотрудника</label>
+        <select id="userSelect"></select>
+      </div>
+      <div style="flex:1">
+        <label class="small">Быстрый вход (имя)</label>
+        <input id="quickName" placeholder="Например: Кофе-леди" />
+      </div>
+      <div style="width:140px;display:flex;align-items:flex-end">
+        <button id="loginBtn">Войти</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="dash"></div>
+
+  <div class="card">
+    <h3>Журнал (все сессии)</h3>
+    <div id="logArea" class="small">Пока пусто</div>
+  </div>
+</div>
+
+<script>
+// --- DEMO DATA ---
+const DEMO_USERS = [
+  {id:'u1',name:'Кофе-леди Амина',role:'barista'},
+  {id:'u2',name:'Кассир Сардор',role:'cashier'},
+  {id:'u3',name:'Оператор Дилшод',role:'operator'},
+  {id:'u4',name:'Директор Самир',role:'director'},
+  {id:'u5',name:'Провинцер Махмуд',role:'runner'}
+];
+const DEMO_MENU = [
+  {id:'m1',cat:'Чай',title:'Чёрный чай'},
+  {id:'m2',cat:'Чай',title:'Зелёный чай'},
+  {id:'m3',cat:'Кофе',title:'Эспрессо'},
+  {id:'m4',cat:'Кофе',title:'Капучино'},
+  {id:'m5',cat:'Соки',title:'Апельсиновый сок'}
+];
+
+const KEY = 'etihad_min_demo_v1';
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY)) || {} }catch(e){ return {} } }
+function save(s){ localStorage.setItem(KEY, JSON.stringify(s)) }
+let state = load();
+if(!state.users) state.users = DEMO_USERS;
+if(!state.menu) state.menu = DEMO_MENU;
+if(!state.sessions) state.sessions = [];
+
+// fill select
+const userSelect = document.getElementById('userSelect');
+function renderUsers(){
+  userSelect.innerHTML = '';
+  state.users.forEach(u=>{
+    const o = document.createElement('option'); o.value = u.id; o.textContent = `${u.name} — ${u.role}`; userSelect.appendChild(o);
+  });
+}
+renderUsers();
+
+// login
+document.getElementById('loginBtn').addEventListener('click', ()=>{
+  const quick = document.getElementById('quickName').value.trim();
+  if(quick){
+    const id = 'tmp'+Date.now();
+    const u = {id,name:quick,role:'barista'}; state.users.push(u); save(state); renderUsers(); renderDashboard(u);
+    return;
+  }
+  const u = state.users.find(x=>x.id===userSelect.value);
+  if(u) renderDashboard(u);
+});
+
+const dash = document.getElementById('dash');
+function renderDashboard(user){
+  dash.innerHTML = '';
+  const card = document.createElement('div'); card.className='card';
+  card.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div><strong>${user.name}</strong><div class="small">Роль: ${user.role}</div></div><div class="small">ID: ${user.id}</div></div>`;
+  // barista view
+  if(user.role==='barista'){
+    const info = document.createElement('div'); info.className='small'; info.style.marginTop='10px'; info.textContent='Кабинет: нажмите Старт при подходе клиента, затем выберите напиток и нажмите Завершить.';
+    card.appendChild(info);
+    const menuWrap = document.createElement('div'); menuWrap.className='menu';
+    state.menu.forEach(it=>{
+      const d = document.createElement('div'); d.className='item'; d.innerHTML = `<strong>${it.title}</strong><div class="small">${it.cat}</div>`;
+      menuWrap.appendChild(d);
+    });
+    card.appendChild(menuWrap);
+
+    const ctrl = document.createElement('div'); ctrl.className='controls';
+    const start = document.createElement('button'); start.textContent='Старт';
+    const finish = document.createElement('button'); finish.textContent='Завершить'; finish.disabled=true;
+    const status = document.createElement('div'); status.className='small'; status.textContent='Нет активной сессии';
+    ctrl.appendChild(start); ctrl.appendChild(finish); ctrl.appendChild(status);
+    card.appendChild(ctrl);
+
+    let active = null;
+    start.addEventListener('click', ()=>{
+      if(active) return alert('Сессия уже активна');
+      active = {sid:'s'+Date.now(),userId:user.id,started:Date.now(),items:[]};
+      state.sessions.push(active); save(state);
+      status.textContent='Клиент активен'; start.disabled=true; finish.disabled=false; renderLog();
+    });
+    finish.addEventListener('click', ()=>{
+      if(!active) return alert('Нет активной сессии');
+      active.ended = Date.now();
+      active.duration = Math.round((active.ended-active.started)/1000);
+      status.textContent = `Завершено — ${formatDur(active.duration)}`;
+      active = null; save(state); start.disabled=false; finish.disabled=true; renderLog();
+    });
+
+    menuWrap.addEventListener('click', e=>{
+      const cardEl = e.target.closest('.item'); if(!cardEl) return;
+      const title = cardEl.querySelector('strong').textContent;
+      const s = state.sessions[state.sessions.length-1];
+      if(s && !s.ended && s.userId===user.id){
+        s.items.push({title, at: Date.now()}); save(state); renderLog();
+      } else alert('Сначала нажмите Старт');
+    });
+  } else {
+    // other roles see sessions summary
+    const info = document.createElement('div'); info.className='small'; info.style.marginTop='10px'; info.textContent='Просмотр сессий (директор/касса/провинцер).';
+    card.appendChild(info);
+    const tableWrap = document.createElement('div'); tableWrap.style.marginTop='12px';
+    const t = document.createElement('table'); t.innerHTML = '<thead><tr><th>Сотрудник</th><th>Начало</th><th>Завершение/статус</th><th>Время</th><th>Позиции</th></tr></thead>';
+    const tbody = document.createElement('tbody');
+    state.sessions.slice().reverse().forEach(s=>{
+      const u = state.users.find(x=>x.id===s.userId) || {name:s.userId};
+      const tr = document.createElement('tr');
+      const start = s.started ? new Date(s.started).toLocaleString() : '-';
+      const end = s.ended ? new Date(s.ended).toLocaleString() : (s.started ? 'активна' : '-');
+      const dur = s.duration ? formatDur(s.duration) : (s.started ? formatDur(Math.round((Date.now()-s.started)/1000)) : '-');
+      const items = (s.items||[]).map(it=>it.title).join(', ') || '-';
+      tr.innerHTML = `<td>${u.name}</td><td>${start}</td><td>${end}</td><td>${dur}</td><td>${items}</td>`;
+      tbody.appendChild(tr);
+    });
+    t.appendChild(tbody); tableWrap.appendChild(t); card.appendChild(tableWrap);
+  }
+
+  dash.appendChild(card);
+  renderLog();
+}
+
+function formatDur(sec){
+  const m = Math.floor(sec/60); const s = sec % 60; return `${m}м ${s}с`;
+}
+
+function renderLog(){
+  const el = document.getElementById('logArea');
+  if(!state.sessions.length){ el.textContent='Пока пусто'; return; }
+  const rows = state.sessions.slice().reverse();
+  const t = document.createElement('table');
+  t.innerHTML = '<thead><tr><th>Сотрудник</th><th>Начало</th><th>Завершение</th><th>Время</th><th>Позиции</th></tr></thead>';
+  const body = document.createElement('tbody');
+  rows.forEach(s=>{
+    const u = state.users.find(x=>x.id===s.userId) || {name:s.userId};
+    const tr = document.createElement('tr');
+    const start = s.started ? new Date(s.started).toLocaleString() : '-';
+    const end = s.ended ? new Date(s.ended).toLocaleString() : (s.started ? 'активна' : '-');
+    const dur = s.duration ? formatDur(s.duration) : (s.started ? formatDur(Math.round((Date.now()-s.started)/1000)) : '-');
+    const items = (s.items||[]).map(it=>it.title).join(', ') || '-';
+    tr.innerHTML = `<td>${u.name}</td><td>${start}</td><td>${end}</td><td>${dur}</td><td>${items}</td>`;
+    body.appendChild(tr);
+  });
+  t.appendChild(body);
+  el.innerHTML=''; el.appendChild(t);
+}
+
+// initial
+renderLog();
+
+// convenience: auto-select first user
+if(state.users && state.users[0]) userSelect.value = state.users[0].id;
+</script>
 </body>
 </html>
