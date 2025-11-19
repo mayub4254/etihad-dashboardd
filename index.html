@@ -1,67 +1,123 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>ETIHAD — Минимальный кабинет</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>ETIHAD — Dashboard</title>
 <style>
-  :root{--bg:#f6f8fb;--card:#fff;--accent:#2a62f5;--muted:#6b7280}
-  body{font-family:Inter,Arial,sans-serif;margin:0;background:var(--bg);color:#111}
-  .wrap{max-width:980px;margin:28px auto;padding:18px}
-  header{display:flex;align-items:center;justify-content:space-between}
+  :root{
+    --bg-accent: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.85));
+    --accent:#2a62f5; --muted:#6b7280; --card:#ffffff; --glass: rgba(255,255,255,0.7);
+  }
+  html,body{height:100%;margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:#f3f6fb;color:#0b1220}
+  body{
+    background-image: url('https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=9f0de2e9660a0c79a4f59d6f7b6f9011');
+    background-size:cover;background-position:center;
+  }
+  .overlay{min-height:100%;backdrop-filter: blur(6px);background:var(--bg-accent);padding:28px 16px;box-sizing:border-box}
+  .wrap{max-width:1100px;margin:0 auto}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo{
+    width:56px;height:56px;border-radius:10px;background:var(--card);display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 18px rgba(10,20,40,0.12);font-weight:700;color:var(--accent)
+  }
   h1{font-size:18px;margin:0}
-  .card{background:var(--card);padding:16px;border-radius:10px;box-shadow:0 6px 18px rgba(15,23,42,0.05);margin-top:14px}
+  .controlsTop{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 10px 30px rgba(2,6,23,0.12);margin-bottom:14px}
   .row{display:flex;gap:12px;align-items:center}
-  select,input{padding:10px;border-radius:8px;border:1px solid #e6e9ef}
-  button{background:var(--accent);color:#fff;padding:10px 14px;border-radius:8px;border:none;cursor:pointer}
-  .menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:12px}
-  .item{background:#fbfdff;border:1px solid #eef3ff;padding:10px;border-radius:8px}
-  .controls{display:flex;gap:8px;align-items:center;margin-top:12px}
-  table{width:100%;border-collapse:collapse;margin-top:10px}
-  th,td{padding:8px;text-align:left;border-bottom:1px solid #f1f5f9;font-size:14px}
+  input,select,textarea{padding:10px;border-radius:8px;border:1px solid #e6e9ef;font-size:14px}
+  button{background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
+  .btn-ghost{background:transparent;border:1px solid #e6e9ef;color:#111}
+  .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:12px}
+  .menu-item{padding:12px;border-radius:10px;background:#fbfdff;border:1px solid #eef3ff;cursor:pointer}
+  .menu-item strong{display:block;margin-bottom:6px}
+  .meta{font-size:13px;color:var(--muted)}
   .small{font-size:13px;color:var(--muted)}
-  @media(max-width:600px){.row{flex-direction:column;align-items:stretch}}
+  table{width:100%;border-collapse:collapse}
+  th,td{padding:8px;text-align:left;border-bottom:1px solid #f1f5f9;font-size:14px}
+  .flex{display:flex;gap:8px;align-items:center}
+  .actions{display:flex;gap:8px}
+  .center{text-align:center}
+  @media(max-width:800px){.row{flex-direction:column;align-items:stretch}.brand h1{font-size:16px}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <h1>ETIHAD — Минимальный кабинет</h1>
-    <div class="small">Демо: localStorage</div>
-  </header>
+<div class="overlay">
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">ET</div>
+        <div>
+          <h1>ETIHAD — Staff Dashboard</h1>
+          <div class="meta">Демо + локальное хранилище</div>
+        </div>
+      </div>
 
-  <div class="card">
-    <div class="row">
-      <div style="width:260px">
-        <label class="small">Выбрать сотрудника</label>
-        <select id="userSelect"></select>
+      <div class="controlsTop">
+        <button id="exportCsv">Export CSV</button>
+        <button id="clearDemo" class="btn-ghost">Clear demo</button>
       </div>
-      <div style="flex:1">
-        <label class="small">Быстрый вход (имя)</label>
-        <input id="quickName" placeholder="Например: Кофе-леди" />
-      </div>
-      <div style="width:140px;display:flex;align-items:flex-end">
-        <button id="loginBtn">Войти</button>
+    </header>
+
+    <!-- Настройки (добавление пользователей и меню) -->
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <div style="flex:1;min-width:240px">
+          <h3 style="margin:0 0 8px 0">Пользователи</h3>
+          <div class="row">
+            <input id="newUserName" placeholder="Имя сотрудника (напр. Кофе-леди)" />
+            <select id="newUserRole">
+              <option value="barista">Кофе-леди (barista)</option>
+              <option value="cashier">Кассир (cashier)</option>
+              <option value="operator">Оператор (operator)</option>
+              <option value="director">Директор (director)</option>
+              <option value="runner">Провинцер (runner)</option>
+            </select>
+            <button id="addUserBtn">Добавить</button>
+          </div>
+        </div>
+
+        <div style="flex:1;min-width:240px">
+          <h3 style="margin:0 0 8px 0">Пункты меню</h3>
+          <div class="row">
+            <input id="newMenuTitle" placeholder="Название (напр. Капучино)" />
+            <select id="newMenuCat"><option>Кофе</option><option>Чай</option><option>Соки</option></select>
+            <button id="addMenuBtn">Добавить</button>
+          </div>
+        </div>
+
+        <div style="min-width:300px">
+          <h3 style="margin:0 0 8px 0">Войти как сотрудник</h3>
+          <div class="row">
+            <select id="userSelect"></select>
+            <input id="quickName" placeholder="Быстрый вход имя (опционально)"/>
+            <button id="loginBtn">Войти</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div id="dash"></div>
+    <!-- Дашборд пользователя -->
+    <div id="dashboardArea"></div>
 
-  <div class="card">
-    <h3>Журнал (все сессии)</h3>
-    <div id="logArea" class="small">Пока пусто</div>
+    <!-- Журнал -->
+    <div class="card">
+      <h3 style="margin:0 0 8px 0">Журнал сеансов</h3>
+      <div id="globalLog" class="small">Нет данных</div>
+    </div>
   </div>
 </div>
 
 <script>
-// --- DEMO DATA ---
+// --- STATE + DEMO DATA ---
+const STORAGE_KEY = 'etihad_prod_demo_v2';
 const DEMO_USERS = [
-  {id:'u1',name:'Кофе-леди Одина',role:'barista'},
-  {id:'u2',name:'Кассир Фарход',role:'cashier'},
-  {id:'u3',name:'Оператор Абдуллох',role:'operator'},
-  {id:'u4',name:'Директор Хуршид',role:'director'},
-  {id:'u5',name:'Провинцер Улугбек',role:'runner'}
+  {id:'u1',name:'Кофе-леди Амина',role:'barista'},
+  {id:'u2',name:'Кассир Сардор',role:'cashier'},
+  {id:'u3',name:'Оператор Дилшод',role:'operator'},
+  {id:'u4',name:'Директор Самир',role:'director'},
+  {id:'u5',name:'Провинцер Махмуд',role:'runner'}
 ];
 const DEMO_MENU = [
   {id:'m1',cat:'Чай',title:'Чёрный чай'},
@@ -71,87 +127,128 @@ const DEMO_MENU = [
   {id:'m5',cat:'Соки',title:'Апельсиновый сок'}
 ];
 
-const KEY = 'etihad_min_demo_v1';
-function load(){ try{ return JSON.parse(localStorage.getItem(KEY)) || {} }catch(e){ return {} } }
-function save(s){ localStorage.setItem(KEY, JSON.stringify(s)) }
-let state = load();
-if(!state.users) state.users = DEMO_USERS;
-if(!state.menu) state.menu = DEMO_MENU;
-if(!state.sessions) state.sessions = [];
+function loadState(){
+  try{ const raw = localStorage.getItem(STORAGE_KEY); if(!raw) return {users:DEMO_USERS.slice(), menu:DEMO_MENU.slice(), sessions:[]}; return JSON.parse(raw); }
+  catch(e){ return {users:DEMO_USERS.slice(), menu:DEMO_MENU.slice(), sessions:[]}; }
+}
+function saveState(s){ localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }
 
-// fill select
+let state = loadState();
+
+// --- UI refs ---
 const userSelect = document.getElementById('userSelect');
-function renderUsers(){
+const dashboardArea = document.getElementById('dashboardArea');
+const globalLog = document.getElementById('globalLog');
+
+// render users select
+function renderUserOptions(){
   userSelect.innerHTML = '';
   state.users.forEach(u=>{
-    const o = document.createElement('option'); o.value = u.id; o.textContent = `${u.name} — ${u.role}`; userSelect.appendChild(o);
+    const opt = document.createElement('option'); opt.value = u.id; opt.textContent = `${u.name} — ${u.role}`; userSelect.appendChild(opt);
   });
 }
-renderUsers();
+renderUserOptions();
 
-// login
+// add user
+document.getElementById('addUserBtn').addEventListener('click', ()=>{
+  const name = document.getElementById('newUserName').value.trim(); const role = document.getElementById('newUserRole').value;
+  if(!name) return alert('Введите имя');
+  const id = 'u'+Date.now();
+  state.users.push({id,name,role}); saveState(state); renderUserOptions(); document.getElementById('newUserName').value='';
+  alert('Пользователь добавлен');
+});
+
+// add menu
+document.getElementById('addMenuBtn').addEventListener('click', ()=>{
+  const title = document.getElementById('newMenuTitle').value.trim(), cat = document.getElementById('newMenuCat').value;
+  if(!title) return alert('Введите название пункта меню');
+  const id = 'm'+Date.now();
+  state.menu.push({id,cat,title}); saveState(state); alert('Пункт меню добавлен');
+});
+
+// quick login
 document.getElementById('loginBtn').addEventListener('click', ()=>{
   const quick = document.getElementById('quickName').value.trim();
   if(quick){
     const id = 'tmp'+Date.now();
-    const u = {id,name:quick,role:'barista'}; state.users.push(u); save(state); renderUsers(); renderDashboard(u);
+    const u = {id,name:quick,role:'barista'}; state.users.push(u); saveState(state); renderUserOptions(); renderDashboard(u);
     return;
   }
   const u = state.users.find(x=>x.id===userSelect.value);
   if(u) renderDashboard(u);
 });
 
-const dash = document.getElementById('dash');
+// render dashboard for user
 function renderDashboard(user){
-  dash.innerHTML = '';
+  dashboardArea.innerHTML = '';
   const card = document.createElement('div'); card.className='card';
-  card.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div><strong>${user.name}</strong><div class="small">Роль: ${user.role}</div></div><div class="small">ID: ${user.id}</div></div>`;
-  // barista view
+  card.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div><strong>${user.name}</strong><div class='meta'>Роль: ${user.role}</div></div><div class='meta'>ID: ${user.id}</div></div>`;
+  // barista
   if(user.role==='barista'){
-    const info = document.createElement('div'); info.className='small'; info.style.marginTop='10px'; info.textContent='Кабинет: нажмите Старт при подходе клиента, затем выберите напиток и нажмите Завершить.';
+    const info = document.createElement('div'); info.className='small'; info.style.marginTop='10px'; info.textContent='Кабинет: Старт → выбираем напитки → Завершить → отчет появится в журнале.';
     card.appendChild(info);
-    const menuWrap = document.createElement('div'); menuWrap.className='menu';
+
+    const menuWrap = document.createElement('div'); menuWrap.className='menu-grid';
     state.menu.forEach(it=>{
-      const d = document.createElement('div'); d.className='item'; d.innerHTML = `<strong>${it.title}</strong><div class="small">${it.cat}</div>`;
-      menuWrap.appendChild(d);
+      const el = document.createElement('div'); el.className='menu-item'; el.dataset.id = it.id;
+      el.innerHTML = `<strong>${it.title}</strong><div class='small'>${it.cat}</div>`;
+      menuWrap.appendChild(el);
     });
     card.appendChild(menuWrap);
 
-    const ctrl = document.createElement('div'); ctrl.className='controls';
-    const start = document.createElement('button'); start.textContent='Старт';
-    const finish = document.createElement('button'); finish.textContent='Завершить'; finish.disabled=true;
-    const status = document.createElement('div'); status.className='small'; status.textContent='Нет активной сессии';
-    ctrl.appendChild(start); ctrl.appendChild(finish); ctrl.appendChild(status);
-    card.appendChild(ctrl);
+    const controls = document.createElement('div'); controls.className='row'; controls.style.marginTop='12px';
+    const startBtn = document.createElement('button'); startBtn.textContent='Старт';
+    const finishBtn = document.createElement('button'); finishBtn.textContent='Завершить'; finishBtn.disabled = true; finishBtn.className='';
+    const status = document.createElement('div'); status.className='small'; status.style.marginLeft='12px'; status.textContent='Нет активного клиента';
+    const timerEl = document.createElement('div'); timerEl.className='small'; timerEl.style.marginLeft='8px';
+    controls.appendChild(startBtn); controls.appendChild(finishBtn); controls.appendChild(status); controls.appendChild(timerEl);
+    card.appendChild(controls);
 
-    let active = null;
-    start.addEventListener('click', ()=>{
-      if(active) return alert('Сессия уже активна');
-      active = {sid:'s'+Date.now(),userId:user.id,started:Date.now(),items:[]};
-      state.sessions.push(active); save(state);
-      status.textContent='Клиент активен'; start.disabled=true; finish.disabled=false; renderLog();
-    });
-    finish.addEventListener('click', ()=>{
-      if(!active) return alert('Нет активной сессии');
-      active.ended = Date.now();
-      active.duration = Math.round((active.ended-active.started)/1000);
-      status.textContent = `Завершено — ${formatDur(active.duration)}`;
-      active = null; save(state); start.disabled=false; finish.disabled=true; renderLog();
+    let activeSession = null; let timerInterval = null;
+
+    function startTimer(session){
+      if(timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(()=>{
+        if(!session) return;
+        const sec = Math.round((Date.now()-session.started)/1000);
+        timerEl.textContent = `Время: ${formatDur(sec)}`;
+      }, 500);
+    }
+
+    startBtn.addEventListener('click', ()=>{
+      if(activeSession) { alert('Сессия уже активна'); return; }
+      activeSession = {sid:'s'+Date.now(),userId:user.id,started:Date.now(),items:[]};
+      state.sessions.push(activeSession); saveState(state);
+      status.textContent = 'Клиент активен'; startBtn.disabled = true; finishBtn.disabled = false;
+      startTimer(activeSession); renderGlobalLog();
     });
 
-    menuWrap.addEventListener('click', e=>{
-      const cardEl = e.target.closest('.item'); if(!cardEl) return;
+    finishBtn.addEventListener('click', ()=>{
+      if(!activeSession){ alert('Нет активной сессии'); return; }
+      activeSession.ended = Date.now();
+      activeSession.duration = Math.round((activeSession.ended - activeSession.started)/1000);
+      status.textContent = `Завершено — ${formatDur(activeSession.duration)}`;
+      startBtn.disabled = false; finishBtn.disabled = true;
+      activeSession = null;
+      if(timerInterval){ clearInterval(timerInterval); timerInterval = null; timerEl.textContent=''; }
+      saveState(state); renderGlobalLog();
+    });
+
+    // clicking menu items to add to active session
+    menuWrap.addEventListener('click', (e)=>{
+      const cardEl = e.target.closest('.menu-item'); if(!cardEl) return;
       const title = cardEl.querySelector('strong').textContent;
       const s = state.sessions[state.sessions.length-1];
       if(s && !s.ended && s.userId===user.id){
-        s.items.push({title, at: Date.now()}); save(state); renderLog();
+        s.items.push({title,at:Date.now()}); saveState(state); renderGlobalLog();
       } else alert('Сначала нажмите Старт');
     });
+
   } else {
-    // other roles see sessions summary
-    const info = document.createElement('div'); info.className='small'; info.style.marginTop='10px'; info.textContent='Просмотр сессий (директор/касса/провинцер).';
+    // other roles: show sessions table
+    const info = document.createElement('div'); info.className='small'; info.style.marginTop='10px'; info.textContent='Просмотр сессий и позиций.';
     card.appendChild(info);
-    const tableWrap = document.createElement('div'); tableWrap.style.marginTop='12px';
+    const table = document.createElement('div'); table.style.marginTop='12px';
     const t = document.createElement('table'); t.innerHTML = '<thead><tr><th>Сотрудник</th><th>Начало</th><th>Завершение/статус</th><th>Время</th><th>Позиции</th></tr></thead>';
     const tbody = document.createElement('tbody');
     state.sessions.slice().reverse().forEach(s=>{
@@ -164,20 +261,23 @@ function renderDashboard(user){
       tr.innerHTML = `<td>${u.name}</td><td>${start}</td><td>${end}</td><td>${dur}</td><td>${items}</td>`;
       tbody.appendChild(tr);
     });
-    t.appendChild(tbody); tableWrap.appendChild(t); card.appendChild(tableWrap);
+    t.appendChild(tbody); table.appendChild(t); card.appendChild(table);
   }
 
-  dash.appendChild(card);
-  renderLog();
+  dashboardArea.appendChild(card);
+  renderGlobalLog();
 }
 
+// format seconds to mm:ss / h:mm
 function formatDur(sec){
-  const m = Math.floor(sec/60); const s = sec % 60; return `${m}м ${s}с`;
+  const h = Math.floor(sec/3600); const m = Math.floor((sec%3600)/60); const s = sec%60;
+  if(h>0) return `${h}ч ${m}м ${s}с`;
+  return `${m}м ${s}с`;
 }
 
-function renderLog(){
-  const el = document.getElementById('logArea');
-  if(!state.sessions.length){ el.textContent='Пока пусто'; return; }
+// global log render
+function renderGlobalLog(){
+  if(!state.sessions.length){ globalLog.textContent='Нет сессий'; return; }
   const rows = state.sessions.slice().reverse();
   const t = document.createElement('table');
   t.innerHTML = '<thead><tr><th>Сотрудник</th><th>Начало</th><th>Завершение</th><th>Время</th><th>Позиции</th></tr></thead>';
@@ -193,14 +293,43 @@ function renderLog(){
     body.appendChild(tr);
   });
   t.appendChild(body);
-  el.innerHTML=''; el.appendChild(t);
+  globalLog.innerHTML=''; globalLog.appendChild(t);
 }
 
-// initial
-renderLog();
+// export CSV
+document.getElementById('exportCsv').addEventListener('click', ()=>{
+  if(!state.sessions.length) return alert('Журнал пуст');
+  const rows = [['Сотрудник','Начало','Завершение','Время (сек)','Позиции']];
+  state.sessions.forEach(s=>{
+    const u = state.users.find(x=>x.id===s.userId) || {name:s.userId};
+    const start = s.started ? new Date(s.started).toLocaleString() : '';
+    const end = s.ended ? new Date(s.ended).toLocaleString() : '';
+    const dur = s.duration || '';
+    const items = (s.items||[]).map(it=>it.title).join('; ');
+    rows.push([u.name,start,end,dur,items]);
+  });
+  const csv = rows.map(r=>r.map(cell=>`"${String(cell).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'etihad_sessions.csv'; document.body.appendChild(link); link.click(); link.remove();
+});
 
-// convenience: auto-select first user
+// clear demo
+document.getElementById('clearDemo').addEventListener('click', ()=>{
+  if(!confirm('Очистить все данные demo?')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  state = loadState();
+  renderUserOptions(); renderGlobalLog(); dashboardArea.innerHTML=''; alert('Данные удалены');
+});
+
+// initial auto-select and render
 if(state.users && state.users[0]) userSelect.value = state.users[0].id;
+renderGlobalLog();
+
+// convenience: render dashboard when selecting user from select (fast view)
+userSelect.addEventListener('change', ()=>{ const u = state.users.find(x=>x.id===userSelect.value); if(u) { /* do nothing until Login */ } });
+
+// Optional: auto-login first user on load (commented out)
+// renderDashboard(state.users[0]);
 </script>
 </body>
 </html>
