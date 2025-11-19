@@ -5,53 +5,73 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>ETIHAD — Кабинеты сотрудников</title>
 <style>
-  /* Фирменные цвета ETIHAD */
   :root{
-    --etihad-green:#145a3a; /* тёмно-зелёный */
-    --etihad-gold:#a67c2a;  /* золотой */
-    --card:#ffffff;
+    --green:#145a3a;
+    --gold:#a67c2a;
     --muted:#596167;
+    --card:#ffffff;
   }
   *{box-sizing:border-box}
-  html,body{height:100%;margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:#f2f6f9}
   body{
-    background-image:
-      linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.75)),
+    margin:0;
+    font-family:Inter,Arial,Helvetica,sans-serif;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.86)),
       url('https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=9f0de2e9660a0c79a4f59d6f7b6f9011');
-    background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;padding:20px;
+    background-size:cover;
+    background-position:center;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
   }
 
-  .frame{width:100%;max-width:820px;background:rgba(255,255,255,0.96);border-radius:14px;box-shadow:0 18px 40px rgba(6,20,40,0.14);padding:20px}
+  .frame{
+    width:100%;
+    max-width:820px;
+    background:rgba(255,255,255,0.98);
+    border-radius:14px;
+    box-shadow:0 18px 40px rgba(10,20,40,0.12);
+    padding:20px;
+  }
+
   .brand{display:flex;gap:12px;align-items:center;margin-bottom:8px}
-  .logo{width:56px;height:56px;border-radius:10px;background:var(--card);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--etihad-green);box-shadow:0 8px 22px rgba(6,20,40,0.08)}
-  h1{margin:0;font-size:18px;color:#0b1220}
+  .logo{width:56px;height:56px;border-radius:10px;background:var(--card);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--green)}
+  h1{margin:0;font-size:18px}
   .small{color:var(--muted);font-size:13px}
 
-  /* Login */
-  .card{border-radius:12px;background:linear-gradient(180deg,#fff,#fbfdff);padding:16px;margin-top:12px;box-shadow:0 8px 20px rgba(6,18,36,0.06)}
-  .login-grid{display:grid;grid-template-columns:1fr 140px;gap:10px;align-items:center}
-  input{padding:12px;border-radius:10px;border:1px solid #e7eef6;font-size:15px}
-  button{background:var(--etihad-green);color:#fff;padding:12px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
-  .btn-ghost{background:transparent;border:1px solid #e6edf4;color:#111;padding:10px;border-radius:10px;cursor:pointer}
-
-  /* Dashboard barista */
+  .card{background:linear-gradient(180deg,#fff,#fbfdff);padding:16px;border-radius:12px;margin-top:12px;box-shadow:0 8px 18px rgba(10,20,40,0.06)}
+  /* упрощённая стабильная форма: колоночная */
+  .login-form{display:flex;flex-direction:column;gap:10px}
+  .login-row{display:flex;flex-direction:column;gap:8px}
+  label{font-size:13px;color:var(--muted)}
+  input[type="text"], input[type="password"], select{
+    padding:12px;border-radius:10px;border:1px solid #e7eef6;font-size:15px;outline:none;width:100%;
+    background:#fff;
+  }
+  input:focus{box-shadow:0 8px 24px rgba(20,90,58,0.06);border-color:var(--green)}
+  .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  button{background:var(--green);color:#fff;padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
+  .btn-ghost{background:transparent;border:1px solid #e6edf4;color:#111;padding:8px;border-radius:10px;cursor:pointer}
   .center{text-align:center}
-  .manager-row{display:flex;gap:10px;align-items:center;justify-content:center;margin-top:10px}
-  select{padding:10px;border-radius:10px;border:1px solid #e7eef6}
+
+  /* barista UI */
+  .manager-row{display:flex;gap:10px;align-items:center;justify-content:center;margin-top:12px;flex-wrap:wrap}
   .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:12px}
-  .menu-item{padding:12px;border-radius:10px;background:#fff;border:1px solid #eef7f1;cursor:pointer;text-align:center;font-weight:700;color:var(--etihad-green);transition:transform .12s,box-shadow .12s}
+  .menu-item{padding:12px;border-radius:10px;background:#fff;border:1px solid #eef7f1;cursor:pointer;text-align:center;font-weight:700;color:var(--green);transition:transform .12s,box-shadow .12s}
   .menu-item:hover{transform:translateY(-4px)}
   .menu-item.selected{box-shadow:0 8px 20px rgba(20,90,58,0.12);background:linear-gradient(180deg, rgba(20,90,58,0.04), #fff)}
-  .start-btn{display:inline-block;padding:14px 36px;border-radius:12px;background:linear-gradient(90deg,var(--etihad-green),#2e8b5e);color:white;font-size:16px;border:0;cursor:pointer;font-weight:800;margin-top:14px}
+  .start-btn{display:inline-block;padding:12px 30px;border-radius:12px;background:linear-gradient(90deg,var(--green),#2e8b5e);color:white;font-size:15px;border:0;cursor:pointer;font-weight:800;margin-top:14px}
   .start-btn.finish{background:linear-gradient(90deg,#c43030,#ff6b6b)}
   .timer{margin-left:12px;color:var(--muted);font-weight:700}
-
-  /* Result box */
   .result{margin-top:14px;padding:12px;border-radius:10px;background:linear-gradient(180deg,#fffef8,#fff);border:1px solid rgba(166,124,42,0.12)}
-  .result strong{color:var(--etihad-green)}
   table{width:100%;border-collapse:collapse;margin-top:10px}
   th,td{padding:8px;text-align:left;border-bottom:1px solid #f1f5f9;font-size:14px}
-  @media(max-width:600px){.login-grid{grid-template-columns:1fr}.manager-row{flex-direction:column;gap:8px}}
+
+  @media(max-width:600px){
+    .manager-row{flex-direction:column}
+  }
 </style>
 </head>
 <body>
@@ -60,39 +80,42 @@
       <div class="logo">ET</div>
       <div>
         <h1>ETIHAD — Кабинеты сотрудников</h1>
-        <div class="small">Вход по логину/паролю. Минималистичный интерфейс для кофеледи и админ-отчет директора.</div>
+        <div class="small">Вход по логину/паролю — минимальный интерфейс для Одины и директора</div>
       </div>
     </div>
 
-    <!-- LOGIN CARD -->
+    <!-- LOGIN -->
     <div id="loginCard" class="card">
       <div style="font-weight:800">Войти в кабинет</div>
       <div class="small" style="margin-top:6px">Введите логин и пароль</div>
 
-      <div style="margin-top:12px" class="login-grid">
-        <div>
-          <input id="loginInput" placeholder="Логин (напр. odina)" autocomplete="username" />
+      <div style="margin-top:12px" class="login-form" aria-label="login form">
+        <div class="login-row">
+          <label for="loginInput">Логин</label>
+          <input id="loginInput" type="text" autocomplete="username" placeholder="Например: odina" />
         </div>
-        <div>
-          <input id="passInput" type="password" placeholder="Пароль" autocomplete="current-password" />
-        </div>
-      </div>
 
-      <div style="display:flex;gap:10px;align-items:center;margin-top:12px">
-        <button id="loginBtn">Войти</button>
-        <button id="demoBtn" class="btn-ghost">Войти как Одина (демо)</button>
-        <div id="loginError" class="small" style="color:#c53030;display:none"></div>
+        <div class="login-row">
+          <label for="passInput">Пароль</label>
+          <input id="passInput" type="password" autocomplete="current-password" placeholder="Пароль" />
+        </div>
+
+        <div class="actions">
+          <button id="loginBtn" type="button">Войти</button>
+          <button id="demoBtn" class="btn-ghost" type="button">Войти как Одина (демо)</button>
+          <div id="loginError" class="small" style="color:#c53030;display:none"></div>
+        </div>
       </div>
     </div>
 
-    <!-- DASHBOARD for BARISTA -->
+    <!-- BARISTA: Одина -->
     <div id="baristaView" style="display:none">
       <div class="card center">
         <div style="font-weight:800;font-size:18px" id="baristaName">Одина</div>
         <div class="small" style="margin-top:6px">Кабинет обслуживания</div>
 
         <div class="manager-row">
-          <div style="font-weight:700;color:var(--etihad-green)">Менеджер у клиента:</div>
+          <div style="font-weight:700;color:var(--green)">Менеджер у клиента:</div>
           <select id="managerSelect" aria-label="Выбрать менеджера"></select>
           <div id="sessionTimer" class="timer"></div>
         </div>
@@ -107,12 +130,12 @@
       </div>
     </div>
 
-    <!-- DASHBOARD for DIRECTOR -->
+    <!-- DIRECTOR -->
     <div id="directorView" style="display:none" class="card">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
         <div>
-          <div style="font-weight:800">Кабинет директора — Хуршид</div>
-          <div class="small">Здесь видны все сотрудники и их отчёты.</div>
+          <div style="font-weight:800">Кабинет директора</div>
+          <div class="small">Здесь отчёты по всем сотрудникам</div>
         </div>
         <div style="display:flex;gap:10px;align-items:center">
           <div class="small">Фильтр по сотруднику:</div>
@@ -122,11 +145,10 @@
 
       <div id="directorTables" style="margin-top:12px"></div>
     </div>
-
   </div>
 
 <script>
-// STORAGE + DEFAULT DATA
+/* --- state + defaults --- */
 const KEY = 'etihad_custom_v1';
 const DEFAULT = {
   users:[
@@ -135,4 +157,209 @@ const DEFAULT = {
     {id:'m_amr', login:'amr', password:'2222', name:'Амр', role:'manager'},
     {id:'m_mub', login:'mubina', password:'3333', name:'Мубина', role:'manager'},
     {id:'m_sh', login:'shahnоza', password:'4444', name:'Шахноза', role:'manager'},
-    {id:'dir1', login:'khurshid', password:'0000'
+    {id:'dir1', login:'khurshid', password:'0000', name:'Хуршид', role:'director'}
+  ],
+  menu:[
+    {id:'c1', title:'Чёрный чай', cat:'Чай'},
+    {id:'c2', title:'Зелёный чай', cat:'Чай'},
+    {id:'c3', title:'Эспрессо', cat:'Кофе'},
+    {id:'c4', title:'Капучино', cat:'Кофе'},
+    {id:'c5', title:'Апельсиновый сок', cat:'Соки'}
+  ],
+  sessions: []
+};
+
+function load(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(!raw){ localStorage.setItem(KEY, JSON.stringify(DEFAULT)); return JSON.parse(JSON.stringify(DEFAULT)); }
+    return JSON.parse(raw);
+  }catch(e){ console.error('load error', e); return JSON.parse(JSON.stringify(DEFAULT)); }
+}
+function save(s){ localStorage.setItem(KEY, JSON.stringify(s)); }
+
+let state = load();
+let currentUser = null;
+let activeSession = null;
+let timerInterval = null;
+
+/* --- refs --- */
+const loginInput = document.getElementById('loginInput');
+const passInput = document.getElementById('passInput');
+const loginBtn = document.getElementById('loginBtn');
+const demoBtn = document.getElementById('demoBtn');
+const loginError = document.getElementById('loginError');
+
+const baristaView = document.getElementById('baristaView');
+const baristaName = document.getElementById('baristaName');
+const managerSelect = document.getElementById('managerSelect');
+const menuGrid = document.getElementById('menuGrid');
+const startBtn = document.getElementById('startBtn');
+const sessionTimer = document.getElementById('sessionTimer');
+const lastResult = document.getElementById('lastResult');
+
+const directorView = document.getElementById('directorView');
+const filterUser = document.getElementById('filterUser');
+const directorTables = document.getElementById('directorTables');
+
+/* --- helpers --- */
+function findUserByLogin(login, pass){
+  return state.users.find(u =>
+    String(u.login||'').trim().toLowerCase() === String(login||'').trim().toLowerCase()
+    && String(u.password||'') === String(pass||'')
+  );
+}
+function findUserById(id){ return state.users.find(u=>u.id===id) || {name:id}; }
+function formatDur(sec){
+  const h = Math.floor(sec/3600), m = Math.floor((sec%3600)/60), s = sec%60;
+  if(h>0) return `${h}ч ${m}м ${s}с`; return `${m}м ${s}с`;
+}
+function startTimer(session){
+  if(timerInterval) clearInterval(timerInterval);
+  timerInterval = setInterval(()=>{
+    if(!session) return;
+    const sec = Math.round((Date.now() - session.started)/1000);
+    sessionTimer.textContent = `Время: ${formatDur(sec)}`;
+  }, 400);
+}
+function stopTimer(){ if(timerInterval){ clearInterval(timerInterval); timerInterval = null; sessionTimer.textContent=''; } }
+
+/* --- render --- */
+function renderManagers(){
+  managerSelect.innerHTML = '';
+  const managers = state.users.filter(u=>u.role==='manager');
+  managers.forEach(m=>{
+    const opt = document.createElement('option'); opt.value = m.id; opt.textContent = m.name; managerSelect.appendChild(opt);
+  });
+  if(managers.length===0){
+    const opt = document.createElement('option'); opt.value=''; opt.textContent='— нет менеджеров —'; managerSelect.appendChild(opt);
+  }
+}
+function renderMenu(){
+  menuGrid.innerHTML = '';
+  state.menu.forEach(it=>{
+    const el = document.createElement('div'); el.className = 'menu-item'; el.dataset.id = it.id;
+    el.innerHTML = `<div>${it.title}</div><div style="font-size:12px;color:var(--muted);margin-top:6px">${it.cat}</div>`;
+    menuGrid.appendChild(el);
+  });
+}
+
+/* --- login handlers --- */
+loginBtn.addEventListener('click', ()=>{
+  try{
+    const L = String(loginInput.value||'').trim().toLowerCase();
+    const P = String(passInput.value||'');
+    if(!L || !P){
+      loginError.style.display = 'block'; loginError.textContent = 'Введите логин и пароль';
+      return;
+    }
+    const user = findUserByLogin(L, P);
+    console.log('login attempt:', L, 'found:', !!user);
+    if(!user){
+      loginError.style.display = 'block'; loginError.textContent = 'Неверный логин или пароль';
+      console.warn('Available logins:', state.users.map(u=>u.login));
+      return;
+    }
+    loginError.style.display = 'none';
+    enterAs(user);
+  }catch(e){ console.error('login error', e); loginError.style.display='block'; loginError.textContent='Ошибка входа'; }
+});
+demoBtn.addEventListener('click', ()=>{ const u = state.users.find(x=>x.login==='odina'); if(u) enterAs(u); });
+
+/* --- enter as user --- */
+function enterAs(u){
+  currentUser = u;
+  console.log('enterAs:', u);
+  if(u.role === 'barista'){
+    document.getElementById('loginCard').style.display = 'none';
+    directorView.style.display = 'none';
+    baristaView.style.display = 'block';
+    baristaName.textContent = u.name;
+    renderManagers(); renderMenu();
+    resetSessionUI(); renderLastSessionIfAny();
+  } else if(u.role === 'director'){
+    document.getElementById('loginCard').style.display = 'none';
+    baristaView.style.display = 'none';
+    directorView.style.display = 'block';
+    renderDirector();
+  } else {
+    alert('В этом прототипе поддержаны кабинеты: кофеледи (Одина) и директор. Войдите соответствующим пользователем.');
+  }
+}
+
+/* --- barista session --- */
+startBtn.addEventListener('click', ()=>{
+  if(!activeSession){
+    activeSession = { sid:'s'+Date.now(), userId: currentUser.id, started: Date.now(), managerId: managerSelect.value || null, items: [] };
+    state.sessions.push(activeSession); save(state);
+    startBtn.textContent = 'Завершить'; startBtn.classList.add('finish');
+    startTimer(activeSession);
+  } else {
+    activeSession.ended = Date.now();
+    activeSession.duration = Math.round((activeSession.ended - activeSession.started)/1000);
+    showLastResult(activeSession);
+    save(state);
+    activeSession = null;
+    startBtn.textContent = 'Старт'; startBtn.classList.remove('finish'); stopTimer();
+    renderDirector();
+  }
+});
+
+/* menu click (add only if active) */
+menuGrid.addEventListener('click', (e)=>{
+  const itemEl = e.target.closest('.menu-item'); if(!itemEl) return;
+  const id = itemEl.dataset.id;
+  const it = state.menu.find(m=>m.id===id); if(!it) return;
+  if(!activeSession){
+    itemEl.style.transform='scale(0.98)'; setTimeout(()=>itemEl.style.transform='','120');
+    return;
+  }
+  activeSession.items.push({ title: it.title, at: Date.now() });
+  itemEl.classList.add('selected'); setTimeout(()=>itemEl.classList.remove('selected'), 450);
+});
+
+/* show result */
+function showLastResult(session){
+  const manager = findUserById(session.managerId).name || '-';
+  const items = (session.items||[]).map(i=>i.title).join(', ') || '-';
+  lastResult.style.display = 'block';
+  lastResult.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div><strong>Итог</strong></div><div style="color:var(--muted);font-weight:700">${formatDur(session.duration)}</div></div><div style="margin-top:8px">Менеджер: <strong>${manager}</strong></div><div style="margin-top:6px">Позиции: <strong>${items}</strong></div>`;
+}
+function renderLastSessionIfAny(){
+  const arr = state.sessions.filter(s=>s.userId===currentUser.id && s.ended).slice(-1);
+  if(arr.length) showLastResult(arr[0]); else lastResult.style.display='none';
+}
+function resetSessionUI(){ activeSession = null; lastResult.style.display='none'; stopTimer(); startBtn.textContent='Старт'; startBtn.classList.remove('finish'); }
+
+/* --- director view --- */
+function renderDirector(){
+  filterUser.innerHTML = '<option value="">Все</option>';
+  state.users.forEach(u=>{ const opt = document.createElement('option'); opt.value = u.id; opt.textContent = `${u.name} — ${u.role}`; filterUser.appendChild(opt); });
+  buildDirectorTables();
+}
+filterUser.addEventListener('change', buildDirectorTables);
+function buildDirectorTables(){
+  const f = filterUser.value;
+  const rows = state.sessions.slice().reverse().filter(s=> !f || s.userId === f);
+  let html = '<div style="overflow:auto"><table><thead><tr><th>Сотрудник</th><th>Менеджер</th><th>Начало</th><th>Завершение</th><th>Длительность</th><th>Позиции</th></tr></thead><tbody>';
+  rows.forEach(s=>{
+    const u = findUserById(s.userId).name;
+    const m = findUserById(s.managerId).name || '-';
+    const start = s.started ? new Date(s.started).toLocaleString() : '-';
+    const end = s.ended ? new Date(s.ended).toLocaleString() : (s.started ? 'активна' : '-');
+    const dur = s.duration ? formatDur(s.duration) : (s.started ? formatDur(Math.round((Date.now()-s.started)/1000)) : '-');
+    const items = (s.items||[]).map(it=>it.title).join('; ') || '-';
+    html += `<tr><td>${u}</td><td>${m}</td><td>${start}</td><td>${end}</td><td>${dur}</td><td>${items}</td></tr>`;
+  });
+  html += '</tbody></table></div>';
+  directorTables.innerHTML = html;
+}
+
+/* --- init --- */
+renderManagers();
+renderMenu();
+loginInput.focus();
+console.log('ETIHAD page loaded. Users:', state.users.map(u=>({login:u.login,role:u.role})));
+</script>
+</body>
+</html>
