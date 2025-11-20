@@ -3,344 +3,309 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>ETIHAD — Кабинеты сотрудников</title>
+<title>etihadmenu.uz — Кабинет</title>
 <style>
-  :root{
-    --green:#145a3a;
-    --gold:#a67c2a;
-    --muted:#596167;
-    --card:#ffffff;
-  }
+  :root{--green:#145a3a;--muted:#596167;--card:#fff}
   *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family:Inter,Arial,Helvetica,sans-serif;
-    background:
-      linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.86)),
-      url('https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=9f0de2e9660a0c79a4f59d6f7b6f9011');
-    background-size:cover;
-    background-position:center;
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-  }
-
-  .frame{
-    width:100%;
-    max-width:820px;
-    background:rgba(255,255,255,0.98);
-    border-radius:14px;
-    box-shadow:0 18px 40px rgba(10,20,40,0.12);
-    padding:20px;
-  }
-
-  .brand{display:flex;gap:12px;align-items:center;margin-bottom:8px}
+  body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#f5f7fa,#eef3f8);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px}
+  .frame{width:100%;max-width:980px;background:rgba(255,255,255,0.98);border-radius:12px;box-shadow:0 18px 40px rgba(6,20,40,0.12);padding:18px}
+  .brand{display:flex;align-items:center;gap:12px}
   .logo{width:56px;height:56px;border-radius:10px;background:var(--card);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--green)}
   h1{margin:0;font-size:18px}
   .small{color:var(--muted);font-size:13px}
 
-  .card{background:linear-gradient(180deg,#fff,#fbfdff);padding:16px;border-radius:12px;margin-top:12px;box-shadow:0 8px 18px rgba(10,20,40,0.06)}
-  /* упрощённая стабильная форма: колоночная */
-  .login-form{display:flex;flex-direction:column;gap:10px}
-  .login-row{display:flex;flex-direction:column;gap:8px}
-  label{font-size:13px;color:var(--muted)}
-  input[type="text"], input[type="password"], select{
-    padding:12px;border-radius:10px;border:1px solid #e7eef6;font-size:15px;outline:none;width:100%;
-    background:#fff;
-  }
-  input:focus{box-shadow:0 8px 24px rgba(20,90,58,0.06);border-color:var(--green)}
-  .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-  button{background:var(--green);color:#fff;padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
+  .card{background:linear-gradient(180deg,#fff,#fbfdff);padding:14px;border-radius:12px;margin-top:12px;box-shadow:0 8px 20px rgba(6,18,36,0.06)}
+  .login-form{display:flex;flex-direction:column;gap:8px}
+  input,select{padding:10px;border-radius:10px;border:1px solid #e7eef6;font-size:14px}
+  .actions{display:flex;gap:8px;align-items:center}
+  button{background:var(--green);color:#fff;padding:10px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
   .btn-ghost{background:transparent;border:1px solid #e6edf4;color:#111;padding:8px;border-radius:10px;cursor:pointer}
-  .center{text-align:center}
 
-  /* barista UI */
-  .manager-row{display:flex;gap:10px;align-items:center;justify-content:center;margin-top:12px;flex-wrap:wrap}
-  .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:12px}
-  .menu-item{padding:12px;border-radius:10px;background:#fff;border:1px solid #eef7f1;cursor:pointer;text-align:center;font-weight:700;color:var(--green);transition:transform .12s,box-shadow .12s}
+  /* sessions area */
+  .sessions-area{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .sess-card{width:220px;padding:10px;border-radius:10px;background:#fff;border:1px solid #edf7ef;box-shadow:0 6px 18px rgba(10,30,20,0.03);cursor:pointer;display:flex;flex-direction:column;gap:8px}
+  .sess-card.active{outline:3px solid rgba(20,90,58,0.12);transform:translateY(-4px)}
+  .sess-title{font-weight:800;color:var(--green)}
+  .sess-meta{font-size:13px;color:var(--muted)}
+  .sess-items{font-size:13px;color:#222;min-height:32px}
+  .sess-controls{display:flex;gap:8px;align-items:center;justify-content:flex-end}
+
+  .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:12px}
+  .menu-item{padding:10px;border-radius:10px;background:#fff;border:1px solid #eef7f1;font-weight:700;color:var(--green);text-align:center;cursor:pointer}
   .menu-item:hover{transform:translateY(-4px)}
-  .menu-item.selected{box-shadow:0 8px 20px rgba(20,90,58,0.12);background:linear-gradient(180deg, rgba(20,90,58,0.04), #fff)}
-  .start-btn{display:inline-block;padding:12px 30px;border-radius:12px;background:linear-gradient(90deg,var(--green),#2e8b5e);color:white;font-size:15px;border:0;cursor:pointer;font-weight:800;margin-top:14px}
-  .start-btn.finish{background:linear-gradient(90deg,#c43030,#ff6b6b)}
-  .timer{margin-left:12px;color:var(--muted);font-weight:700}
-  .result{margin-top:14px;padding:12px;border-radius:10px;background:linear-gradient(180deg,#fffef8,#fff);border:1px solid rgba(166,124,42,0.12)}
-  table{width:100%;border-collapse:collapse;margin-top:10px}
-  th,td{padding:8px;text-align:left;border-bottom:1px solid #f1f5f9;font-size:14px}
+  .note{font-size:13px;color:var(--muted);margin-top:8px}
 
-  @media(max-width:600px){
-    .manager-row{flex-direction:column}
-  }
+  table{width:100%;border-collapse:collapse;margin-top:10px}
+  th,td{padding:8px;text-align:left;border-bottom:1px solid #f1f5f9;font-size:13px}
+  @media(max-width:820px){.sess-card{width:calc(50% - 8px)}}
+  @media(max-width:480px){.sess-card{width:100%}}
 </style>
 </head>
 <body>
   <div class="frame" id="app">
-    <div class="brand">
-      <div class="logo">ET</div>
-      <div>
-        <h1>ETIHAD — Кабинеты сотрудников</h1>
-        <div class="small">Вход по логину/паролю — минимальный интерфейс для Одины и директора</div>
-      </div>
-    </div>
+    <div class="brand"><div class="logo">ET</div><div><h1>etihadmenu.uz — Кабинет</h1><div class="small">Вход по логину/паролю</div></div></div>
 
     <!-- LOGIN -->
     <div id="loginCard" class="card">
-      <div style="font-weight:800">Войти в кабинет</div>
-      <div class="small" style="margin-top:6px">Введите логин и пароль</div>
-
-      <div style="margin-top:12px" class="login-form" aria-label="login form">
-        <div class="login-row">
-          <label for="loginInput">Логин</label>
-          <input id="loginInput" type="text" autocomplete="username" placeholder="Например: odina" />
-        </div>
-
-        <div class="login-row">
-          <label for="passInput">Пароль</label>
-          <input id="passInput" type="password" autocomplete="current-password" placeholder="Пароль" />
-        </div>
-
+      <div style="font-weight:800">Войти</div>
+      <div class="small" style="margin-top:6px">логин / пароль</div>
+      <div style="margin-top:10px" class="login-form">
+        <input id="loginInput" placeholder="Логин (напр. odina)" autocomplete="username">
+        <input id="passInput" type="password" placeholder="Пароль" autocomplete="current-password">
         <div class="actions">
-          <button id="loginBtn" type="button">Войти</button>
-          <button id="demoBtn" class="btn-ghost" type="button">Войти как Одина (демо)</button>
+          <button id="loginBtn">Войти</button>
+          <button id="demoBtn" class="btn-ghost">Демо: Одина</button>
           <div id="loginError" class="small" style="color:#c53030;display:none"></div>
         </div>
       </div>
     </div>
 
-    <!-- BARISTA: Одина -->
-    <div id="baristaView" style="display:none">
-      <div class="card center">
-        <div style="font-weight:800;font-size:18px" id="baristaName">Одина</div>
-        <div class="small" style="margin-top:6px">Кабинет обслуживания</div>
-
-        <div class="manager-row">
-          <div style="font-weight:700;color:var(--green)">Менеджер у клиента:</div>
-          <select id="managerSelect" aria-label="Выбрать менеджера"></select>
-          <div id="sessionTimer" class="timer"></div>
+    <!-- MAIN for barista -->
+    <div id="mainView" style="display:none">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div><div style="font-weight:800" id="whoName">Одина</div><div class="small">Кабинет обслуживания — можно вести несколько клиентов одновременно</div></div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <select id="newSessManager"></select>
+            <button id="newSessBtn">Новая сессия</button>
+          </div>
         </div>
 
-        <div id="menuGrid" class="menu-grid" aria-label="Меню бара"></div>
+        <div class="note">Нажмите карточку сессии, чтобы выбрать её. Меню добавляет позицию в выбранную карточку.</div>
 
-        <div style="text-align:center">
-          <button id="startBtn" class="start-btn">Старт</button>
-        </div>
+        <!-- sessions -->
+        <div class="sessions-area" id="sessionsArea"></div>
 
-        <div id="lastResult" style="display:none" class="result"></div>
+        <!-- menu -->
+        <div class="menu-grid" id="menuGrid"></div>
+      </div>
+
+      <!-- last results / journal preview -->
+      <div class="card">
+        <h3 style="margin:0">Последние сессии</h3>
+        <div id="recentLog" class="small">Пока пусто</div>
       </div>
     </div>
 
     <!-- DIRECTOR -->
     <div id="directorView" style="display:none" class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-        <div>
-          <div style="font-weight:800">Кабинет директора</div>
-          <div class="small">Здесь отчёты по всем сотрудникам</div>
-        </div>
-        <div style="display:flex;gap:10px;align-items:center">
-          <div class="small">Фильтр по сотруднику:</div>
-          <select id="filterUser"><option value="">Все</option></select>
-        </div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div><div style="font-weight:800">Кабинет директора</div><div class="small">Отчёты по всем сотрудникам</div></div>
+        <div><select id="filterUser"><option value="">Все</option></select></div>
       </div>
-
-      <div id="directorTables" style="margin-top:12px"></div>
+      <div id="directorTables"></div>
     </div>
   </div>
 
 <script>
-/* --- state + defaults --- */
+// state
 const KEY = 'etihad_custom_v1';
 const DEFAULT = {
   users:[
-    {id:'od1', login:'odina', password:'1234', name:'Одина', role:'barista'},
-    {id:'m_abd', login:'abdulloh', password:'1111', name:'Абдуллох', role:'manager'},
-    {id:'m_amr', login:'amr', password:'2222', name:'Амр', role:'manager'},
-    {id:'m_mub', login:'mubina', password:'3333', name:'Мубина', role:'manager'},
-    {id:'m_sh', login:'shahnоza', password:'4444', name:'Шахноза', role:'manager'},
-    {id:'dir1', login:'khurshid', password:'0000', name:'Хуршид', role:'director'}
+    {id:'od1',login:'odina',password:'1234',name:'Одина',role:'barista'},
+    {id:'m_abd',login:'abdulloh',password:'1111',name:'Абдуллох',role:'manager'},
+    {id:'m_amr',login:'amr',password:'2222',name:'Амр',role:'manager'},
+    {id:'m_mub',login:'mubina',password:'3333',name:'Мубина',role:'manager'},
+    {id:'m_sh',login:'shahnоza',password:'4444',name:'Шахноза',role:'manager'},
+    {id:'dir1',login:'khurshid',password:'0000',name:'Хуршид',role:'director'}
   ],
   menu:[
-    {id:'c1', title:'Чёрный чай', cat:'Чай'},
-    {id:'c2', title:'Зелёный чай', cat:'Чай'},
-    {id:'c3', title:'Эспрессо', cat:'Кофе'},
-    {id:'c4', title:'Капучино', cat:'Кофе'},
-    {id:'c5', title:'Апельсиновый сок', cat:'Соки'}
+    {id:'c1',title:'Чёрный чай',cat:'Чай'},
+    {id:'c2',title:'Зелёный чай',cat:'Чай'},
+    {id:'c3',title:'Эспрессо',cat:'Кофе'},
+    {id:'c4',title:'Капучино',cat:'Кофе'},
+    {id:'c5',title:'Апельсиновый сок',cat:'Соки'}
   ],
-  sessions: []
+  sessions: [] // {sid,userId,managerId,started,ended,duration,items:[]}
 };
-
-function load(){
-  try{
-    const raw = localStorage.getItem(KEY);
-    if(!raw){ localStorage.setItem(KEY, JSON.stringify(DEFAULT)); return JSON.parse(JSON.stringify(DEFAULT)); }
-    return JSON.parse(raw);
-  }catch(e){ console.error('load error', e); return JSON.parse(JSON.stringify(DEFAULT)); }
-}
+function load(){ try{ const r=localStorage.getItem(KEY); if(!r){ localStorage.setItem(KEY,JSON.stringify(DEFAULT)); return JSON.parse(JSON.stringify(DEFAULT)); } return JSON.parse(r); }catch(e){ return JSON.parse(JSON.stringify(DEFAULT)); } }
 function save(s){ localStorage.setItem(KEY, JSON.stringify(s)); }
 
 let state = load();
 let currentUser = null;
-let activeSession = null;
-let timerInterval = null;
+let selectedSessionId = null; // which session is selected to receive menu items
+let timerIntervals = {}; // map sid -> interval id
 
-/* --- refs --- */
+// refs
+const loginCard = document.getElementById('loginCard');
+const mainView = document.getElementById('mainView');
+const directorView = document.getElementById('directorView');
 const loginInput = document.getElementById('loginInput');
 const passInput = document.getElementById('passInput');
 const loginBtn = document.getElementById('loginBtn');
 const demoBtn = document.getElementById('demoBtn');
 const loginError = document.getElementById('loginError');
 
-const baristaView = document.getElementById('baristaView');
-const baristaName = document.getElementById('baristaName');
-const managerSelect = document.getElementById('managerSelect');
+const whoName = document.getElementById('whoName');
+const newSessManager = document.getElementById('newSessManager');
+const newSessBtn = document.getElementById('newSessBtn');
+const sessionsArea = document.getElementById('sessionsArea');
 const menuGrid = document.getElementById('menuGrid');
-const startBtn = document.getElementById('startBtn');
-const sessionTimer = document.getElementById('sessionTimer');
-const lastResult = document.getElementById('lastResult');
+const recentLog = document.getElementById('recentLog');
 
-const directorView = document.getElementById('directorView');
 const filterUser = document.getElementById('filterUser');
 const directorTables = document.getElementById('directorTables');
 
-/* --- helpers --- */
-function findUserByLogin(login, pass){
-  return state.users.find(u =>
-    String(u.login||'').trim().toLowerCase() === String(login||'').trim().toLowerCase()
-    && String(u.password||'') === String(pass||'')
-  );
-}
+// helpers
+function findUserByLogin(l,p){ return state.users.find(u=>String(u.login||'').trim().toLowerCase()===String(l||'').trim().toLowerCase() && String(u.password||'')===String(p||'')); }
 function findUserById(id){ return state.users.find(u=>u.id===id) || {name:id}; }
-function formatDur(sec){
-  const h = Math.floor(sec/3600), m = Math.floor((sec%3600)/60), s = sec%60;
-  if(h>0) return `${h}ч ${m}м ${s}с`; return `${m}м ${s}с`;
-}
-function startTimer(session){
-  if(timerInterval) clearInterval(timerInterval);
-  timerInterval = setInterval(()=>{
-    if(!session) return;
-    const sec = Math.round((Date.now() - session.started)/1000);
-    sessionTimer.textContent = `Время: ${formatDur(sec)}`;
-  }, 400);
-}
-function stopTimer(){ if(timerInterval){ clearInterval(timerInterval); timerInterval = null; sessionTimer.textContent=''; } }
+function formatDur(sec){ const h=Math.floor(sec/3600), m=Math.floor((sec%3600)/60), s=sec%60; if(h>0) return `${h}ч ${m}м ${s}с`; return `${m}м ${s}с`; }
 
-/* --- render --- */
-function renderManagers(){
-  managerSelect.innerHTML = '';
-  const managers = state.users.filter(u=>u.role==='manager');
-  managers.forEach(m=>{
-    const opt = document.createElement('option'); opt.value = m.id; opt.textContent = m.name; managerSelect.appendChild(opt);
-  });
-  if(managers.length===0){
-    const opt = document.createElement('option'); opt.value=''; opt.textContent='— нет менеджеров —'; managerSelect.appendChild(opt);
-  }
-}
+// render menu & managers
 function renderMenu(){
   menuGrid.innerHTML = '';
   state.menu.forEach(it=>{
-    const el = document.createElement('div'); el.className = 'menu-item'; el.dataset.id = it.id;
+    const el = document.createElement('div'); el.className='menu-item'; el.dataset.id = it.id;
     el.innerHTML = `<div>${it.title}</div><div style="font-size:12px;color:var(--muted);margin-top:6px">${it.cat}</div>`;
     menuGrid.appendChild(el);
   });
 }
-
-/* --- login handlers --- */
-loginBtn.addEventListener('click', ()=>{
-  try{
-    const L = String(loginInput.value||'').trim().toLowerCase();
-    const P = String(passInput.value||'');
-    if(!L || !P){
-      loginError.style.display = 'block'; loginError.textContent = 'Введите логин и пароль';
-      return;
-    }
-    const user = findUserByLogin(L, P);
-    console.log('login attempt:', L, 'found:', !!user);
-    if(!user){
-      loginError.style.display = 'block'; loginError.textContent = 'Неверный логин или пароль';
-      console.warn('Available logins:', state.users.map(u=>u.login));
-      return;
-    }
-    loginError.style.display = 'none';
-    enterAs(user);
-  }catch(e){ console.error('login error', e); loginError.style.display='block'; loginError.textContent='Ошибка входа'; }
-});
-demoBtn.addEventListener('click', ()=>{ const u = state.users.find(x=>x.login==='odina'); if(u) enterAs(u); });
-
-/* --- enter as user --- */
-function enterAs(u){
-  currentUser = u;
-  console.log('enterAs:', u);
-  if(u.role === 'barista'){
-    document.getElementById('loginCard').style.display = 'none';
-    directorView.style.display = 'none';
-    baristaView.style.display = 'block';
-    baristaName.textContent = u.name;
-    renderManagers(); renderMenu();
-    resetSessionUI(); renderLastSessionIfAny();
-  } else if(u.role === 'director'){
-    document.getElementById('loginCard').style.display = 'none';
-    baristaView.style.display = 'none';
-    directorView.style.display = 'block';
-    renderDirector();
-  } else {
-    alert('В этом прототипе поддержаны кабинеты: кофеледи (Одина) и директор. Войдите соответствующим пользователем.');
-  }
+function renderManagersList(){
+  newSessManager.innerHTML = '';
+  state.users.filter(u=>u.role==='manager').forEach(m=>{
+    const o = document.createElement('option'); o.value = m.id; o.textContent = m.name; newSessManager.appendChild(o);
+  });
+  // director filter
+  filterUser.innerHTML = '<option value="">Все</option>';
+  state.users.forEach(u=>{ const opt=document.createElement('option'); opt.value=u.id; opt.textContent = `${u.name} — ${u.role}`; filterUser.appendChild(opt); });
 }
 
-/* --- barista session --- */
-startBtn.addEventListener('click', ()=>{
-  if(!activeSession){
-    activeSession = { sid:'s'+Date.now(), userId: currentUser.id, started: Date.now(), managerId: managerSelect.value || null, items: [] };
-    state.sessions.push(activeSession); save(state);
-    startBtn.textContent = 'Завершить'; startBtn.classList.add('finish');
-    startTimer(activeSession);
-  } else {
-    activeSession.ended = Date.now();
-    activeSession.duration = Math.round((activeSession.ended - activeSession.started)/1000);
-    showLastResult(activeSession);
-    save(state);
-    activeSession = null;
-    startBtn.textContent = 'Старт'; startBtn.classList.remove('finish'); stopTimer();
-    renderDirector();
-  }
-});
+// sessions UI
+function renderSessions(){
+  sessionsArea.innerHTML = '';
+  const actives = state.sessions.filter(s=>!s.ended);
+  // show actives first
+  actives.forEach(s=>{
+    sessionsArea.appendChild(createSessionCard(s));
+  });
+  // also show recently ended small cards (optional)
+  const lastEnded = state.sessions.filter(s=>s.ended).slice(-6).reverse();
+  lastEnded.forEach(s=>{
+    const c = createSessionCard(s, true);
+    sessionsArea.appendChild(c);
+  });
+}
 
-/* menu click (add only if active) */
-menuGrid.addEventListener('click', (e)=>{
-  const itemEl = e.target.closest('.menu-item'); if(!itemEl) return;
-  const id = itemEl.dataset.id;
-  const it = state.menu.find(m=>m.id===id); if(!it) return;
-  if(!activeSession){
-    itemEl.style.transform='scale(0.98)'; setTimeout(()=>itemEl.style.transform='','120');
+function createSessionCard(s, isEnded=false){
+  const card = document.createElement('div');
+  card.className = 'sess-card' + (selectedSessionId===s.sid && !isEnded ? ' active' : '');
+  card.dataset.sid = s.sid;
+  const name = findUserById(s.userId).name;
+  const manager = findUserById(s.managerId).name || '-';
+  const started = s.started ? new Date(s.started).toLocaleTimeString() : '-';
+  const title = `<div class="sess-title">${name}</div><div class="sess-meta">${manager} · ${started}</div>`;
+  const items = document.createElement('div'); items.className='sess-items';
+  items.textContent = (s.items||[]).map(it=>it.title).join(', ') || '(пока пусто)';
+  card.innerHTML = title;
+  card.appendChild(items);
+
+  const controls = document.createElement('div'); controls.className='sess-controls';
+  if(!isEnded){
+    const timer = document.createElement('div'); timer.className='sess-meta'; timer.style.fontWeight='700'; timer.style.marginRight='8px';
+    timer.textContent = s.started ? formatDur(Math.round((Date.now()-s.started)/1000)) : '';
+    card.appendChild(timer);
+
+    const btnFinish = document.createElement('button'); btnFinish.textContent = 'Завершить'; btnFinish.style.padding='6px 8px'; btnFinish.style.fontSize='13px';
+    btnFinish.addEventListener('click',(ev)=>{ ev.stopPropagation(); finishSession(s.sid); });
+    controls.appendChild(btnFinish);
+  } else {
+    const endedAt = s.ended ? new Date(s.ended).toLocaleTimeString() : '-';
+    const dur = s.duration ? formatDur(s.duration) : '-';
+    const footer = document.createElement('div'); footer.className='sess-meta'; footer.style.marginTop='8px';
+    footer.innerHTML = `Завершено: ${endedAt} · ${dur}`;
+    card.appendChild(footer);
+  }
+  card.appendChild(controls);
+
+  // click selects session (only if active)
+  if(!isEnded){
+    card.addEventListener('click', ()=>{
+      selectedSessionId = s.sid;
+      renderSessions();
+    });
+    // live timer
+    updateTimerForCard(s.sid, card);
+  }
+  return card;
+}
+
+function updateTimerForCard(sid, cardEl){
+  // stop old interval if any
+  if(timerIntervals[sid]) clearInterval(timerIntervals[sid]);
+  timerIntervals[sid] = setInterval(()=>{
+    const s = state.sessions.find(x=>x.sid===sid);
+    if(!s || s.ended){ clearInterval(timerIntervals[sid]); return; }
+    const timerEl = cardEl.querySelector('.sess-meta');
+    if(timerEl) timerEl.textContent = findUserById(s.managerId).name + ' · ' + formatDur(Math.round((Date.now()-s.started)/1000));
+  }, 600);
+}
+
+// start new session
+function startNewSession(managerId){
+  if(!currentUser) return alert('Не авторизован');
+  const sid = 's'+Date.now();
+  const s = { sid, userId: currentUser.id, managerId: managerId, started: Date.now(), items: [] };
+  state.sessions.push(s); save(state);
+  selectedSessionId = sid;
+  renderSessions();
+  renderRecentLog();
+}
+
+// finish
+function finishSession(sid){
+  const s = state.sessions.find(x=>x.sid===sid);
+  if(!s) return;
+  if(!s.ended){ s.ended = Date.now(); s.duration = Math.round((s.ended - s.started)/1000); save(state); }
+  // if finished was selected -> clear selection
+  if(selectedSessionId===sid) selectedSessionId = null;
+  renderSessions();
+  renderRecentLog();
+  renderDirectorTables(); // update director view
+}
+
+// add menu item to selected session (or to newest active)
+function addItemToSession(itemId){
+  const item = state.menu.find(m=>m.id===itemId);
+  if(!item) return;
+  // find target session
+  let target = state.sessions.find(s=>s.sid===selectedSessionId && !s.ended);
+  if(!target){
+    // fallback: newest active
+    const actives = state.sessions.filter(s=>!s.ended);
+    target = actives.length ? actives[actives.length-1] : null;
+  }
+  if(!target){
+    // nothing active -> small visual cue
+    alert('Сначала создайте сессию (Новая сессия) для менеджера');
     return;
   }
-  activeSession.items.push({ title: it.title, at: Date.now() });
-  itemEl.classList.add('selected'); setTimeout(()=>itemEl.classList.remove('selected'), 450);
-});
+  target.items.push({ title: item.title, at: Date.now() });
+  save(state);
+  renderSessions();
+  renderRecentLog();
+  renderDirectorTables();
+}
 
-/* show result */
-function showLastResult(session){
-  const manager = findUserById(session.managerId).name || '-';
-  const items = (session.items||[]).map(i=>i.title).join(', ') || '-';
-  lastResult.style.display = 'block';
-  lastResult.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div><strong>Итог</strong></div><div style="color:var(--muted);font-weight:700">${formatDur(session.duration)}</div></div><div style="margin-top:8px">Менеджер: <strong>${manager}</strong></div><div style="margin-top:6px">Позиции: <strong>${items}</strong></div>`;
+// recent log
+function renderRecentLog(){
+  const rows = state.sessions.slice().reverse().slice(0,8);
+  if(!rows.length){ recentLog.textContent='Пока пусто'; return; }
+  let html = '<table><thead><tr><th>Сотрудник</th><th>Менеджер</th><th>Время</th><th>Позиции</th></tr></thead><tbody>';
+  rows.forEach(s=>{
+    const u = findUserById(s.userId).name;
+    const m = findUserById(s.managerId).name || '-';
+    const time = s.started ? new Date(s.started).toLocaleString() : '-';
+    const items = (s.items||[]).map(it=>it.title).join(', ') || '-';
+    html += `<tr><td>${u}</td><td>${m}</td><td>${time}</td><td>${items}</td></tr>`;
+  });
+  html += '</tbody></table>';
+  recentLog.innerHTML = html;
 }
-function renderLastSessionIfAny(){
-  const arr = state.sessions.filter(s=>s.userId===currentUser.id && s.ended).slice(-1);
-  if(arr.length) showLastResult(arr[0]); else lastResult.style.display='none';
-}
-function resetSessionUI(){ activeSession = null; lastResult.style.display='none'; stopTimer(); startBtn.textContent='Старт'; startBtn.classList.remove('finish'); }
 
-/* --- director view --- */
-function renderDirector(){
-  filterUser.innerHTML = '<option value="">Все</option>';
-  state.users.forEach(u=>{ const opt = document.createElement('option'); opt.value = u.id; opt.textContent = `${u.name} — ${u.role}`; filterUser.appendChild(opt); });
-  buildDirectorTables();
-}
-filterUser.addEventListener('change', buildDirectorTables);
-function buildDirectorTables(){
+// director table
+function renderDirectorTables(){
   const f = filterUser.value;
-  const rows = state.sessions.slice().reverse().filter(s=> !f || s.userId === f);
+  const rows = state.sessions.slice().reverse().filter(s=> !f || s.userId===f);
   let html = '<div style="overflow:auto"><table><thead><tr><th>Сотрудник</th><th>Менеджер</th><th>Начало</th><th>Завершение</th><th>Длительность</th><th>Позиции</th></tr></thead><tbody>';
   rows.forEach(s=>{
     const u = findUserById(s.userId).name;
@@ -355,11 +320,54 @@ function buildDirectorTables(){
   directorTables.innerHTML = html;
 }
 
-/* --- init --- */
-renderManagers();
-renderMenu();
-loginInput.focus();
-console.log('ETIHAD page loaded. Users:', state.users.map(u=>({login:u.login,role:u.role})));
+// login handlers
+loginBtn.addEventListener('click', ()=>{
+  const l = String(loginInput.value||'').trim().toLowerCase();
+  const p = String(passInput.value||'');
+  if(!l || !p){ loginError.style.display='block'; loginError.textContent='Введите логин и пароль'; return; }
+  const user = findUserByLogin(l,p);
+  if(!user){ loginError.style.display='block'; loginError.textContent='Неверный логин или пароль'; console.warn('Доступные логины:', state.users.map(u=>u.login)); return; }
+  loginError.style.display='none';
+  currentUser = user;
+  if(user.role === 'barista'){
+    loginCard.style.display='none';
+    mainView.style.display='block';
+    directorView.style.display='none';
+    whoName.textContent = user.name;
+    renderManagersList(); renderMenu(); renderSessions(); renderRecentLog();
+  } else if(user.role === 'director'){
+    loginCard.style.display='none';
+    mainView.style.display='none';
+    directorView.style.display='block';
+    renderManagersList(); renderDirectorTables();
+  } else {
+    alert('В этом прототипе поддержаны: кофеледи и директор. Войдите как соответствующий пользователь.');
+  }
+});
+demoBtn.addEventListener('click', ()=>{
+  const u = state.users.find(x=>x.login==='odina'); if(u){ loginInput.value = 'odina'; passInput.value = '1234'; loginBtn.click(); }
+});
+
+// new session click
+newSessBtn.addEventListener('click', ()=>{
+  const m = newSessManager.value;
+  if(!m) return alert('Выберите менеджера');
+  startNewSession(m);
+});
+
+// menu click
+menuGrid.addEventListener('click', (e)=>{
+  const el = e.target.closest('.menu-item'); if(!el) return;
+  const id = el.dataset.id;
+  addItemToSession(id);
+});
+
+// director filter
+filterUser.addEventListener('change', ()=> renderDirectorTables());
+
+// initial render
+renderManagersList(); renderMenu(); renderRecentLog();
+console.log('App loaded. Users:', state.users.map(u=>({login:u.login,role:u.role})));
 </script>
 </body>
 </html>
