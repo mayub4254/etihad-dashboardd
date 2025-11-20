@@ -3,111 +3,110 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>etihadmenu.uz — Кабинет</title>
+<title>etihadmenu.uz — Кабинет (stable)</title>
 <style>
-  :root{--green:#145a3a;--muted:#596167;--card:#fff}
-  *{box-sizing:border-box}
-  body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#f5f7fa,#eef3f8);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px}
-  .frame{width:100%;max-width:1000px;background:rgba(255,255,255,0.98);border-radius:12px;box-shadow:0 18px 40px rgba(6,20,40,0.12);padding:18px}
-  .brand{display:flex;align-items:center;gap:12px}
-  .logo{width:56px;height:56px;border-radius:10px;background:var(--card);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--green)}
-  h1{margin:0;font-size:18px}
-  .small{color:var(--muted);font-size:13px}
-
-  .card{background:linear-gradient(180deg,#fff,#fbfdff);padding:14px;border-radius:12px;margin-top:12px;box-shadow:0 8px 20px rgba(6,18,36,0.06)}
-  input,select{padding:10px;border-radius:10px;border:1px solid #e7eef6;font-size:14px}
-  .actions{display:flex;gap:8px;align-items:center}
-  button{background:var(--green);color:#fff;padding:10px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
-  .btn-ghost{background:transparent;border:1px solid #e6edf4;color:#111;padding:8px;border-radius:10px;cursor:pointer}
-
-  .sessions-area{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-  .sess-card{width:260px;padding:10px;border-radius:10px;background:#fff;border:1px solid #edf7ef;box-shadow:0 6px 18px rgba(10,30,20,0.03);cursor:pointer;display:flex;flex-direction:column;gap:8px;position:relative}
-  .sess-card.active{outline:3px solid rgba(20,90,58,0.12);transform:translateY(-4px)}
-  .sess-card.waiting{opacity:0.98;border-style:solid;border-width:1px;border-color:rgba(160,160,160,0.12)}
-  .sess-title{font-weight:800;color:var(--green)}
-  .sess-meta{font-size:13px;color:var(--muted)}
-  .sess-items{font-size:13px;color:#222;min-height:34px}
-  .sess-controls{display:flex;gap:6px;align-items:center;justify-content:flex-end;flex-wrap:wrap}
-
-  .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:12px}
-  .menu-item{padding:10px;border-radius:10px;background:#fff;border:1px solid #eef7f1;font-weight:700;color:var(--green);text-align:center;cursor:pointer}
-  .menu-item:hover{transform:translateY(-3px)}
-  .note{font-size:13px;color:var(--muted);margin-top:8px}
-
-  table{width:100%;border-collapse:collapse;margin-top:10px}
-  th,td{padding:8px;text-align:left;border-bottom:1px solid #f1f5f9;font-size:13px}
-  .badge{font-size:12px;padding:4px 8px;border-radius:8px;background:#f3f5f4;color:#234;display:inline-block}
-  @media(max-width:880px){.sess-card{width:calc(50% - 8px)}}
-  @media(max-width:520px){.sess-card{width:100%}}
+:root{--green:#145a3a;--muted:#596167;--card:#fff}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#f5f7fa,#eef3f8);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px}
+.frame{width:100%;max-width:1000px;background:rgba(255,255,255,0.98);border-radius:12px;box-shadow:0 18px 40px rgba(6,20,40,0.12);padding:18px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:56px;height:56px;border-radius:10px;background:var(--card);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--green)}
+h1{margin:0;font-size:18px}
+.small{color:var(--muted);font-size:13px}
+.card{background:linear-gradient(180deg,#fff,#fbfdff);padding:14px;border-radius:12px;margin-top:12px;box-shadow:0 8px 20px rgba(6,18,36,0.06)}
+input,select,button{font-family:inherit}
+input,select{padding:10px;border-radius:10px;border:1px solid #e7eef6;font-size:14px}
+.actions{display:flex;gap:8px;align-items:center}
+button{background:var(--green);color:#fff;padding:10px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
+.btn-ghost{background:transparent;border:1px solid #e6edf4;color:#111;padding:8px;border-radius:10px;cursor:pointer}
+.sessions-area{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.sess-card{width:260px;padding:10px;border-radius:10px;background:#fff;border:1px solid #edf7ef;box-shadow:0 6px 18px rgba(10,30,20,0.03);cursor:pointer;display:flex;flex-direction:column;gap:8px;position:relative}
+.sess-card.active{outline:3px solid rgba(20,90,58,0.12);transform:translateY(-4px)}
+.sess-card.waiting{opacity:0.98;border-style:solid;border-width:1px;border-color:rgba(160,160,160,0.12)}
+.sess-title{font-weight:800;color:var(--green)}
+.sess-meta{font-size:13px;color:var(--muted)}
+.sess-items{font-size:13px;color:#222;min-height:34px}
+.sess-controls{display:flex;gap:6px;align-items:center;justify-content:flex-end;flex-wrap:wrap}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:12px}
+.menu-item{padding:10px;border-radius:10px;background:#fff;border:1px solid #eef7f1;font-weight:700;color:var(--green);text-align:center;cursor:pointer;user-select:none}
+.menu-item:active{transform:translateY(-2px)}
+.note{font-size:13px;color:var(--muted);margin-top:8px}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{padding:8px;text-align:left;border-bottom:1px solid #f1f5f9;font-size:13px}
+.badge{font-size:12px;padding:4px 8px;border-radius:8px;background:#f3f5f4;color:#234;display:inline-block}
+.smallmuted{font-size:12px;color:#869099}
+@media(max-width:880px){.sess-card{width:calc(50% - 8px)}}
+@media(max-width:520px){.sess-card{width:100%}}
+.clear-link{background:#e6eef4;color:#145a3a;padding:6px 10px;border-radius:8px;border:0;cursor:pointer}
 </style>
 </head>
 <body>
-  <div class="frame" id="app">
-    <div class="brand">
-      <div class="logo">ET</div>
-      <div>
-        <h1>etihadmenu.uz — Кабинет</h1>
-        <div class="small">Поддержка нескольких сессий, ожидания и контроль "Стол очищен"</div>
-      </div>
-    </div>
-
-    <!-- LOGIN -->
-    <div id="loginCard" class="card">
-      <div style="font-weight:800">Войти</div>
-      <div class="small" style="margin-top:6px">логин / пароль</div>
-      <div style="margin-top:10px" class="login-form">
-        <input id="loginInput" placeholder="Логин (напр. odina)" autocomplete="username">
-        <input id="passInput" type="password" placeholder="Пароль" autocomplete="current-password">
-        <div class="actions" style="margin-top:8px">
-          <button id="loginBtn">Войти</button>
-          <button id="demoBtn" class="btn-ghost">Демо: Одина</button>
-          <div id="loginError" class="small" style="color:#c53030;display:none"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- MAIN for barista -->
-    <div id="mainView" style="display:none">
-      <div class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-          <div>
-            <div style="font-weight:800" id="whoName">Одина</div>
-            <div class="small">Можно вести несколько клиентов одновременно; поддерживается ожидание</div>
-          </div>
-          <div style="display:flex;gap:8px;align-items:center">
-            <select id="newSessManager"></select>
-            <button id="newSessBtn">Новая сессия</button>
-          </div>
-        </div>
-
-        <div class="note">Нажми карточку сессии чтобы выбрать её (выделится). Меню добавляет позицию в выбранную карточку. Если у менеджера уже есть активная сессия — новая создастся в статусе <strong>Ожидание</strong>.</div>
-
-        <!-- sessions -->
-        <div class="sessions-area" id="sessionsArea"></div>
-
-        <!-- menu -->
-        <div class="menu-grid" id="menuGrid"></div>
-      </div>
-
-      <!-- last results -->
-      <div class="card">
-        <h3 style="margin:0">Последние сессии</h3>
-        <div id="recentLog" class="small">Пока пусто</div>
-      </div>
-    </div>
-
-    <!-- DIRECTOR -->
-    <div id="directorView" style="display:none" class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <div>
-          <div style="font-weight:800">Кабинет директора</div>
-          <div class="small">Отчёты по всем сотрудникам</div>
-        </div>
-        <div><select id="filterUser"><option value="">Все</option></select></div>
-      </div>
-      <div id="directorTables"></div>
+<div class="frame" id="app">
+  <div class="brand">
+    <div class="logo">ET</div>
+    <div>
+      <h1>etihadmenu.uz — Кабинет</h1>
+      <div class="small">Устойчивая версия — исправлены баги сессий и дубликатов</div>
     </div>
   </div>
+
+  <!-- Login -->
+  <div id="loginCard" class="card">
+    <div style="font-weight:800">Войти</div>
+    <div class="small" style="margin-top:6px">логин / пароль</div>
+    <div style="margin-top:10px" class="login-form">
+      <input id="loginInput" placeholder="Логин (напр. odina)" autocomplete="username">
+      <input id="passInput" type="password" placeholder="Пароль" autocomplete="current-password">
+      <div class="actions" style="margin-top:8px">
+        <button id="loginBtn">Войти</button>
+        <button id="demoBtn" class="btn-ghost">Демо: Одина</button>
+        <div id="loginError" class="small" style="color:#c53030;display:none"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div id="mainView" style="display:none">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div>
+          <div style="font-weight:800" id="whoName">Одина</div>
+          <div class="small">Можно вести несколько клиентов одновременно; поддерживается ожидание</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <select id="newSessManager"></select>
+          <button id="newSessBtn">Новая сессия</button>
+        </div>
+      </div>
+      <div class="note">Нажми карточку сессии чтобы выбрать её (выделится). Меню добавляет позицию в выбранную карточку. Если у менеджера уже есть активная — новая будет в статусе Ожидание.</div>
+
+      <div class="sessions-area" id="sessionsArea"></div>
+
+      <div class="menu-grid" id="menuGrid"></div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0">Последние сессии</h3>
+      <div id="recentLog" class="small">Пока пусто</div>
+      <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
+        <button id="resetBtn" class="clear-link">Сбросить все сессии (очистить хранилище)</button>
+        <div class="smallmuted">Используй, если хочешь начать «с нуля»</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Director -->
+  <div id="directorView" style="display:none" class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <div style="font-weight:800">Кабинет директора</div>
+        <div class="small">Отчёты по всем сотрудникам</div>
+      </div>
+      <div><select id="filterUser"><option value="">Все</option></select></div>
+    </div>
+    <div id="directorTables"></div>
+  </div>
+</div>
 
 <script>
 /* ---------- State & defaults ---------- */
@@ -130,13 +129,61 @@ const DEFAULT = {
   ],
   sessions: []
 };
-function load(){ try{ const r=localStorage.getItem(KEY); if(!r){ localStorage.setItem(KEY,JSON.stringify(DEFAULT)); return JSON.parse(JSON.stringify(DEFAULT)); } return JSON.parse(r);}catch(e){ return JSON.parse(JSON.stringify(DEFAULT)); } }
-function save(s){ localStorage.setItem(KEY, JSON.stringify(s)); }
+
+function loadRaw(){
+  try{ return JSON.parse(localStorage.getItem(KEY) || 'null'); }catch(e){ return null; }
+}
+function saveState(s){ localStorage.setItem(KEY, JSON.stringify(s)); }
+function load(){
+  // загружаем и мигрируем старые данные
+  const raw = loadRaw();
+  if(!raw) { saveState(DEFAULT); return JSON.parse(JSON.stringify(DEFAULT)); }
+  // если нет sessions -> инициализируем структуру
+  raw.sessions = Array.isArray(raw.sessions) ? raw.sessions : [];
+  // миграция / валидация каждой сессии
+  raw.sessions = raw.sessions.map(s => {
+    s = s || {};
+    s.sid = s.sid || ('s'+(Date.now() + Math.floor(Math.random()*1000)));
+    s.userId = s.userId || 'od1';
+    s.managerId = s.managerId || s.manager || '';
+    s.createdAt = s.createdAt || s.created || Date.now();
+    s.started = s.started || null;
+    s.ended = s.ended || null;
+    s.waitedSeconds = typeof s.waitedSeconds === 'number' ? s.waitedSeconds : 0;
+    s.duration = typeof s.duration === 'number' ? s.duration : (s.ended && s.started ? Math.round((s.ended - s.started)/1000) : null);
+    s.status = s.status || (s.ended ? 'finished' : (s.started ? 'active' : 'waiting'));
+    s.items = Array.isArray(s.items) ? s.items : (s.items ? [s.items] : []);
+    s.readyToFinish = !!s.readyToFinish;
+    return s;
+  });
+  // нормализуем: если у менеджера есть активная — все остальные ждут; если нет активной — первая waiting -> active
+  const managers = [...new Set(raw.sessions.map(s=>s.managerId).filter(Boolean))];
+  managers.forEach(mid=>{
+    const byManager = raw.sessions.filter(s=>s.managerId===mid).sort((a,b)=> (a.createdAt||0)-(b.createdAt||0));
+    if(byManager.length){
+      const hasActive = byManager.some(s=>s.status==='active');
+      if(!hasActive){
+        // сделаем самой ранней не finished — active, если она не finished
+        const earliest = byManager.find(s=>s.status!=='finished');
+        if(earliest){ earliest.status = 'active'; earliest.started = earliest.started || earliest.createdAt; }
+      }
+      // остальные, если не finished and not active => waiting
+      byManager.forEach(s=>{
+        if(s.status !== 'finished' && s.status !== 'active') s.status = 'waiting';
+      });
+    }
+  });
+  // убираем явно некорректные записи (менеджер пустой) — но не удаляем: ставим managerId='' и status waiting
+  raw.sessions.forEach(s=>{ if(!s.managerId) s.managerId = ''; if(!s.userId) s.userId='od1'; });
+  saveState(raw);
+  return raw;
+}
 
 let state = load();
 let currentUser = null;
 let selectedSessionId = null;
-let timers = {}; // sid -> interval
+let lastNewSessAt = 0;
+let timers = {};
 
 /* ---------- Refs ---------- */
 const loginCard = document.getElementById('loginCard');
@@ -157,18 +204,22 @@ const recentLog = document.getElementById('recentLog');
 
 const filterUser = document.getElementById('filterUser');
 const directorTables = document.getElementById('directorTables');
+const resetBtn = document.getElementById('resetBtn');
 
 /* ---------- Helpers ---------- */
 function findUserByLogin(l,p){ return state.users.find(u=>String(u.login||'').trim().toLowerCase()===String(l||'').trim().toLowerCase() && String(u.password||'')===String(p||'')); }
-function findUserById(id){ return state.users.find(u=>u.id===id) || {name:id}; }
+function findUserById(id){ return state.users.find(u=>u.id===id) || {name:id || '—'}; }
 function formatDur(sec){ const h=Math.floor(sec/3600), m=Math.floor((sec%3600)/60), s=sec%60; if(h>0) return `${h}ч ${m}м ${s}с`; return `${m}м ${s}с`; }
+function now(){ return Date.now(); }
 
-/* ---------- Rendering ---------- */
+/* ---------- Render ---------- */
 function renderMenu(){
   menuGrid.innerHTML = '';
+  // single event listener approach, but create buttons here
   state.menu.forEach(it=>{
-    const el = document.createElement('div'); el.className='menu-item'; el.dataset.id = it.id;
-    el.innerHTML = `<div>${it.title}</div><div style="font-size:12px;color:var(--muted);margin-top:6px">${it.cat}</div>`;
+    const el = document.createElement('div'); el.className='menu-item'; el.dataset.id = it.id; el.textContent = it.title;
+    const sub = document.createElement('div'); sub.style.fontSize='12px'; sub.style.color='var(--muted)'; sub.style.marginTop='6px'; sub.textContent = it.cat;
+    el.appendChild(sub);
     menuGrid.appendChild(el);
   });
 }
@@ -181,24 +232,24 @@ function renderManagersList(){
   state.users.forEach(u=>{ const opt=document.createElement('option'); opt.value=u.id; opt.textContent = `${u.name} — ${u.role}`; filterUser.appendChild(opt); });
 }
 
-/* ---------- Sessions UI ---------- */
 function renderSessions(){
+  // clear timers
+  Object.keys(timers).forEach(k=>{ clearInterval(timers[k]); delete timers[k]; });
   sessionsArea.innerHTML = '';
-  // active & waiting first
-  const activeWaiting = state.sessions.filter(s=>s.status==='active' || s.status==='waiting');
-  activeWaiting.forEach(s=> sessionsArea.appendChild(createSessionCard(s, false)));
-  // recent finished
-  const finished = state.sessions.filter(s=>s.status==='finished').slice(-6).reverse();
-  finished.forEach(s=> sessionsArea.appendChild(createSessionCard(s, true)));
+  // order: active, waiting, finished
+  const active = state.sessions.filter(s=>s.status==='active');
+  const waiting = state.sessions.filter(s=>s.status==='waiting');
+  const finished = state.sessions.filter(s=>s.status==='finished').slice(-8).reverse();
+  const list = [...active, ...waiting, ...finished];
+  list.forEach(s=> sessionsArea.appendChild(createSessionCard(s)));
 }
 
-function createSessionCard(s, isFinished=false){
+function createSessionCard(s){
   const card = document.createElement('div');
   card.className = 'sess-card' + (selectedSessionId===s.sid && s.status==='active' ? ' active' : '') + (s.status==='waiting' ? ' waiting' : '');
   card.dataset.sid = s.sid;
-
   const name = findUserById(s.userId).name;
-  const manager = findUserById(s.managerId).name || '-';
+  const manager = findUserById(s.managerId).name || '—';
   const created = s.createdAt ? new Date(s.createdAt).toLocaleTimeString() : '-';
   const statusLabel = s.status === 'waiting' ? 'Ожидание' : (s.status === 'active' ? 'В обслуживании' : 'Завершено');
 
@@ -211,7 +262,7 @@ function createSessionCard(s, isFinished=false){
   const ctr = document.createElement('div'); ctr.className='sess-controls';
 
   if(s.status === 'waiting'){
-    const waited = s.createdAt ? Math.round((Date.now() - s.createdAt)/1000) : 0;
+    const waited = s.createdAt ? Math.round((now() - s.createdAt)/1000) : 0;
     const waitedEl = document.createElement('div'); waitedEl.className='sess-meta'; waitedEl.style.fontWeight='700'; waitedEl.style.marginRight='6px'; waitedEl.textContent = 'Ждет: ' + formatDur(waited);
     ctr.appendChild(waitedEl);
 
@@ -219,47 +270,55 @@ function createSessionCard(s, isFinished=false){
     startBtn.addEventListener('click', (ev)=>{ ev.stopPropagation(); startServiceForSession(s.sid); });
     ctr.appendChild(startBtn);
 
+    // update waited counter regularly
+    timers[s.sid] = setInterval(()=>{
+      const el = card.querySelector('.sess-meta');
+      if(el) el.textContent = `${manager} · ${statusLabel} · ${created} · Ждет ${formatDur(Math.round((now() - s.createdAt)/1000))}`;
+    }, 1000);
+
   } else if(s.status === 'active'){
-    // checkbox "Стол очищен"
     const chkWrap = document.createElement('label');
     chkWrap.style.display='flex'; chkWrap.style.alignItems='center'; chkWrap.style.gap='6px'; chkWrap.style.fontSize='13px';
     const input = document.createElement('input'); input.type='checkbox'; input.dataset.sid = s.sid;
     input.title = 'Поставьте галочку если стол очищен';
-    // остановим всплытие: клик по чекбоксу не должен триггерить клик карточки
     input.addEventListener('click', e => e.stopPropagation());
-    // восстановим состояние из state
     input.checked = !!s.readyToFinish;
     const span = document.createElement('span'); span.textContent = 'Стол очищен';
     chkWrap.appendChild(input); chkWrap.appendChild(span);
     ctr.appendChild(chkWrap);
 
-    // Кнопка завершить (активна только при checked)
     const finishBtn = document.createElement('button'); finishBtn.textContent = 'Завершить'; finishBtn.style.padding='6px 8px'; finishBtn.style.fontSize='13px';
     finishBtn.disabled = !input.checked;
     finishBtn.addEventListener('click', (ev)=>{ ev.stopPropagation(); finishSessionWithCheck(s.sid); });
     ctr.appendChild(finishBtn);
 
-    // добавить таймер метку
     const timerEl = document.createElement('div'); timerEl.className='sess-meta'; timerEl.style.fontWeight='700'; timerEl.style.marginLeft='6px';
     ctr.appendChild(timerEl);
-    // подписка: при изменении чекбокса сохраняем в state и включаем/выключаем кнопку
+
     input.addEventListener('change', ev=>{
       const checked = !!ev.target.checked;
       const ss = state.sessions.find(x=>x.sid===s.sid);
-      if(ss){ ss.readyToFinish = checked; save(state); }
+      if(ss){ ss.readyToFinish = checked; saveState(state); }
       finishBtn.disabled = !checked;
     });
-    // запустить обновление таймера
-    updateTimerForCard(s.sid, card);
+
+    timers[s.sid] = setInterval(()=> {
+      const ss = state.sessions.find(x=>x.sid===s.sid);
+      if(!ss || ss.status !== 'active'){ clearInterval(timers[s.sid]); return; }
+      const tEl = card.querySelector('.sess-meta');
+      if(tEl) tEl.textContent = `${manager} · ${statusLabel} · ${created} · ${formatDur(Math.round((now() - ss.started)/1000))}`;
+    }, 1000);
+
   } else { // finished
     const endedAt = s.ended ? new Date(s.ended).toLocaleTimeString() : '-';
     const dur = s.duration ? formatDur(s.duration) : '-';
     const waited = s.waitedSeconds ? formatDur(s.waitedSeconds) : '-';
     const footer = document.createElement('div'); footer.className='sess-meta'; footer.innerHTML = `Завершено: ${endedAt} · ${dur} · Ожидал: ${waited}`;
-    card.appendChild(footer);
+    ctr.appendChild(footer);
   }
 
-  // клик по карточке — выбрать
+  card.appendChild(ctr);
+
   if(s.status !== 'finished'){
     card.addEventListener('click', ()=>{
       selectedSessionId = s.sid;
@@ -270,88 +329,74 @@ function createSessionCard(s, isFinished=false){
   return card;
 }
 
-/* ---------- Timer update ---------- */
-function updateTimerForCard(sid, cardEl){
-  if(timers[sid]) clearInterval(timers[sid]);
-  timers[sid] = setInterval(()=>{
-    const s = state.sessions.find(x=>x.sid===sid);
-    if(!s || s.status !== 'active'){ clearInterval(timers[sid]); return; }
-    const timerMeta = cardEl.querySelector('.sess-meta');
-    if(timerMeta){
-      timerMeta.textContent = findUserById(s.managerId).name + ' · ' + formatDur(Math.round((Date.now() - s.started)/1000));
-    }
-  }, 600);
-}
-
-/* ---------- Session lifecycle ---------- */
+/* ---------- Session flow ---------- */
 function startNewSession(managerId){
+  // prevent super fast duplicates
+  if(Date.now() - lastNewSessAt < 700) return;
+  lastNewSessAt = Date.now();
+
   if(!currentUser) return alert('Не авторизован');
+  if(!managerId) return alert('Выберите менеджера');
   const hasActive = state.sessions.some(s=>s.managerId===managerId && s.status==='active');
-  const sid = 's'+Date.now();
-  const now = Date.now();
+  const sid = 's'+Date.now() + Math.floor(Math.random()*999);
+  const nowTs = now();
   const status = hasActive ? 'waiting' : 'active';
-  const s = { sid, userId: currentUser.id, managerId, createdAt: now, started: status==='active' ? now : null, waitedSeconds: 0, ended: null, duration: null, status, items: [], readyToFinish: false };
-  state.sessions.push(s); save(state);
-  selectedSessionId = status==='active' ? sid : selectedSessionId;
+  const s = { sid, userId: currentUser.id, managerId, createdAt: nowTs, started: status==='active' ? nowTs : null, waitedSeconds: 0, ended: null, duration: null, status, items: [], readyToFinish: false };
+  state.sessions.push(s); saveState(state);
+  if(status==='active') selectedSessionId = sid;
   renderSessions(); renderRecentLog(); renderDirectorTables();
 }
+
 function startServiceForSession(sid){
-  const s = state.sessions.find(x=>x.sid===sid);
-  if(!s) return;
+  const s = state.sessions.find(x=>x.sid===sid); if(!s) return;
   if(s.status !== 'waiting') return;
-  s.started = Date.now();
-  s.waitedSeconds = Math.round((s.started - (s.createdAt || s.started))/1000);
+  s.started = now();
+  s.waitedSeconds = Math.round((s.started - (s.createdAt||s.started))/1000);
   s.status = 'active';
-  save(state);
+  saveState(state);
   selectedSessionId = sid;
   renderSessions(); renderRecentLog(); renderDirectorTables();
 }
+
 function finishSessionWithCheck(sid){
-  const s = state.sessions.find(x=>x.sid===sid);
-  if(!s) return;
-  if(!s.readyToFinish){
-    return alert('Поставьте галочку "Стол очищен", чтобы завершить сессию');
-  }
+  const s = state.sessions.find(x=>x.sid===sid); if(!s) return;
+  if(!s.readyToFinish) return alert('Поставьте галочку "Стол очищен", чтобы завершить сессию');
   finishSession(sid);
 }
+
 function finishSession(sid){
-  const s = state.sessions.find(x=>x.sid===sid);
-  if(!s) return;
+  const s = state.sessions.find(x=>x.sid===sid); if(!s) return;
   if(!s.ended){
-    s.ended = Date.now();
+    s.ended = now();
     s.duration = Math.round((s.ended - (s.started || s.createdAt))/1000);
     if(!s.waitedSeconds && s.started && s.createdAt) s.waitedSeconds = Math.round((s.started - s.createdAt)/1000);
     s.status = 'finished';
-    save(state);
+    saveState(state);
   }
-  if(selectedSessionId === sid) selectedSessionId = null;
+  if(selectedSessionId===sid) selectedSessionId = null;
   renderSessions(); renderRecentLog(); renderDirectorTables();
 }
 
-/* ---------- Add menu item ---------- */
+/* ---------- Add item ---------- */
 function addItemToSession(itemId){
-  const item = state.menu.find(m=>m.id===itemId);
-  if(!item) return;
-  // prefer selected (not finished)
+  const item = state.menu.find(m=>m.id===itemId); if(!item) return;
+  // choose target: selected session (not finished) -> newest active -> newest waiting -> create prompt
   let target = state.sessions.find(s=>s.sid===selectedSessionId && s.status!=='finished');
   if(!target){
     const actives = state.sessions.filter(s=>s.status==='active');
     target = actives.length ? actives[actives.length-1] : null;
-    if(!target){
-      const waitings = state.sessions.filter(s=>s.status==='waiting');
-      target = waitings.length ? waitings[waitings.length-1] : null;
-    }
   }
   if(!target){
-    alert('Нет открытой сессии. Создайте новую сессию.');
-    return;
+    const waitings = state.sessions.filter(s=>s.status==='waiting');
+    target = waitings.length ? waitings[waitings.length-1] : null;
   }
-  target.items.push({ title: item.title, at: Date.now() });
-  save(state);
+  if(!target) { alert('Нет открытой сессии. Создайте новую сессию.'); return; }
+  target.items.push({ title: item.title, at: now() });
+  saveState(state);
   renderSessions(); renderRecentLog(); renderDirectorTables();
 }
 
-/* ---------- Recent log and director ---------- */
+/* ---------- Logs / Director ---------- */
 function renderRecentLog(){
   const rows = state.sessions.slice().reverse().slice(0,8);
   if(!rows.length){ recentLog.textContent='Пока пусто'; return; }
@@ -359,10 +404,10 @@ function renderRecentLog(){
   rows.forEach(s=>{
     const u = findUserById(s.userId).name;
     const m = findUserById(s.managerId).name || '-';
-    const time = s.createdAt ? new Date(s.createdAt).toLocaleString() : '-';
+    const t = s.createdAt ? new Date(s.createdAt).toLocaleString() : '-';
     const items = (s.items||[]).map(it=>it.title).join(', ') || '-';
-    const status = s.status + (s.status==='finished' && s.waitedSeconds ? ` (ждал ${formatDur(s.waitedSeconds)})` : '');
-    html += `<tr><td>${u}</td><td>${m}</td><td>${time}</td><td>${status}</td><td>${items}</td></tr>`;
+    const st = s.status || '-';
+    html += `<tr><td>${u}</td><td>${m}</td><td>${t}</td><td>${st}</td><td>${items}</td></tr>`;
   });
   html += '</tbody></table>';
   recentLog.innerHTML = html;
@@ -375,16 +420,13 @@ function renderDirectorTables(){
   rows.forEach(s=>{
     const u = findUserById(s.userId).name;
     const m = findUserById(s.managerId).name || '-';
-    const start = s.started ? new Date(s.started).toLocaleString() : (s.createdAt? 'ожидал' : '-');
-    const end = s.ended ? new Date(s.ended).toLocaleString() : (s.started? 'активна' : '-');
-    const dur = s.duration ? formatDur(s.duration) : (s.started? formatDur(Math.round((Date.now()-s.started)/1000)) : '-');
+    const start = s.started ? new Date(s.started).toLocaleString() : (s.createdAt ? 'ожидал' : '-');
+    const end = s.ended ? new Date(s.ended).toLocaleString() : (s.started ? 'активна' : '-');
+    const dur = s.duration ? formatDur(s.duration) : (s.started ? formatDur(Math.round((now()-s.started)/1000)) : '-');
     const waited = s.waitedSeconds ? formatDur(s.waitedSeconds) : '-';
-    // split items by time: before started => waitingItems, after started => servingItems
-    const waitingItems = [];
-    const servingItems = [];
+    const waitingItems = []; const servingItems = [];
     (s.items||[]).forEach(it=>{
-      if(s.started && it.at >= s.started) servingItems.push(it.title);
-      else waitingItems.push(it.title);
+      if(s.started && it.at >= s.started) servingItems.push(it.title); else waitingItems.push(it.title);
     });
     const w = waitingItems.length ? waitingItems.join('; ') : '-';
     const sv = servingItems.length ? servingItems.join('; ') : '-';
@@ -404,15 +446,11 @@ loginBtn.addEventListener('click', ()=>{
   loginError.style.display='none';
   currentUser = user;
   if(user.role === 'barista'){
-    loginCard.style.display='none';
-    mainView.style.display='block';
-    directorView.style.display='none';
+    loginCard.style.display='none'; mainView.style.display='block'; directorView.style.display='none';
     whoName.textContent = user.name;
     renderManagersList(); renderMenu(); renderSessions(); renderRecentLog();
   } else if(user.role === 'director'){
-    loginCard.style.display='none';
-    mainView.style.display='none';
-    directorView.style.display='block';
+    loginCard.style.display='none'; mainView.style.display='none'; directorView.style.display='block';
     renderManagersList(); renderDirectorTables();
   } else {
     alert('Поддерживаются кабинеты: кофеледи и директор. Войдите соответствующим пользователем.');
@@ -420,24 +458,30 @@ loginBtn.addEventListener('click', ()=>{
 });
 demoBtn.addEventListener('click', ()=>{ const u = state.users.find(x=>x.login==='odina'); if(u){ loginInput.value='odina'; passInput.value='1234'; loginBtn.click(); } });
 
-newSessBtn.addEventListener('click', ()=>{
-  const m = newSessManager.value;
-  if(!m) return alert('Выберите менеджера');
-  startNewSession(m);
-});
+newSessBtn.addEventListener('click', ()=>{ const m = newSessManager.value; if(!m) return alert('Выберите менеджера'); startNewSession(m); });
 
+// single delegated click for menu => prevents double-binding
 menuGrid.addEventListener('click', (e)=>{
   const el = e.target.closest('.menu-item'); if(!el) return;
+  // prevent accidental double clicks by short locking
   addItemToSession(el.dataset.id);
 });
 
+// director filter
 filterUser.addEventListener('change', ()=> renderDirectorTables());
 
+// reset storage
+resetBtn.addEventListener('click', ()=>{
+  if(!confirm('Сбросить все сессии и начать с нуля?')) return;
+  // keep users/menu, clear sessions
+  state.sessions = [];
+  saveState(state);
+  renderSessions(); renderRecentLog(); renderDirectorTables();
+});
+
 /* ---------- Init ---------- */
-renderManagersList();
-renderMenu();
-renderRecentLog();
-console.log('ETIHAD app loaded. Users:', state.users.map(u=>({login:u.login,role:u.role})));
+renderManagersList(); renderMenu(); renderRecentLog();
+console.log('Stable ETIHAD loaded. Users:', state.users.map(u=>({login:u.login,role:u.role})));
 </script>
 </body>
 </html>
