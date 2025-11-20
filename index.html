@@ -98,6 +98,23 @@
 
   @media(max-width:980px){ .sess-card{width:calc(50% - 12px)} }
   @media(max-width:560px){ .sess-card{width:100%} .frame{padding:10px} .menu-grid{grid-template-columns:repeat(2,1fr)} }
+ select {
+    color: #eaf7ec;
+    background: rgba(0,0,0,0.12);
+    border: 1px solid rgba(255,255,255,0.06);
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  select option {
+    color: #0f2f23;
+    background: #ffffff;
+  }
+
+  select option:checked {
+    background: var(--brand-green);
+    color: #ffffff;
+  }
 </style>
 </head>
 <body>
