@@ -175,7 +175,80 @@ function renderSessions(){
   sessionsArea.innerHTML = '';
   // active and waiting first
   const activeAndWaiting = state.sessions.filter(s=>s.status==='active' || s.status==='waiting');
-  activeAndWaiting.forEach(s=> sessionsArea.appendChild(createSessionCard(s, false)));
+  activeAndWaiting.forEach(s=> sessionsArea.appendChild(function createSessionCard(s, isFinished = false){
+  const card = document.createElement('div');
+  card.className = 'sess-card' + (selectedSessionId===s.sid && s.status==='active' ? ' active' : '') + (s.status==='waiting' ? ' waiting' : '');
+  card.dataset.sid = s.sid;
+  const name = findUserById(s.userId).name;
+  const manager = findUserById(s.managerId).name || '-';
+  const created = s.createdAt ? new Date(s.createdAt).toLocaleTimeString() : '-';
+  let topHtml = `<div class="sess-title">${name}</div><div class="sess-meta">${manager} · ${s.status==='waiting' ? 'Ожидание' : (s.status==='active' ? 'В обслуживании' : 'Завершено')} · ${created}</div>`;
+  card.innerHTML = topHtml;
+
+  const items = document.createElement('div'); items.className='sess-items';
+  items.textContent = (s.items||[]).map(it=>it.title).join(', ') || '(пока пусто)';
+  card.appendChild(items);
+
+  const ctr = document.createElement('div'); ctr.className='sess-controls';
+
+  if(s.status === 'waiting'){
+    const waited = s.createdAt ? Math.round((Date.now() - s.createdAt)/1000) : 0;
+    const waitedEl = document.createElement('div'); waitedEl.className='sess-meta'; waitedEl.style.fontWeight='700'; waitedEl.style.marginRight='6px'; waitedEl.textContent = 'Ждет: ' + formatDur(waited);
+    ctr.appendChild(waitedEl);
+    const startBtn = document.createElement('button'); startBtn.textContent = 'Начать обслуживание'; startBtn.style.padding='6px 8px'; startBtn.style.fontSize='13px';
+    startBtn.addEventListener('click', (ev)=>{ ev.stopPropagation(); startServiceForSession(s.sid); });
+    ctr.appendChild(startBtn);
+  } else if(s.status === 'active'){
+    // чекбокс + кнопка Завершить
+    const chkWrap = document.createElement('label');
+    chkWrap.style.display='flex'; chkWrap.style.alignItems='center'; chkWrap.style.gap='6px'; chkWrap.style.fontSize='13px';
+    const input = document.createElement('input'); input.type='checkbox'; input.dataset.sid = s.sid;
+    input.title = 'Поставьте галочку, когда готовы завершить';
+    // остановим всплытие клика от чекбокса к карточке
+    input.addEventListener('click', e => e.stopPropagation());
+    // восстановим checked из state (если было)
+    input.checked = !!s.readyToFinish;
+    chkWrap.appendChild(input);
+    const span = document.createElement('span'); span.textContent = 'Готов к завершению';
+    chkWrap.appendChild(span);
+    ctr.appendChild(chkWrap);
+
+    const finishBtn = document.createElement('button'); finishBtn.textContent = 'Завершить'; finishBtn.style.padding='6px 8px'; finishBtn.style.fontSize='13px';
+    finishBtn.disabled = !input.checked;
+    finishBtn.addEventListener('click', (ev)=>{ ev.stopPropagation(); finishSessionWithCheck(s.sid); });
+    ctr.appendChild(finishBtn);
+
+    // на изменение: сохраняем в state и включаем/выключаем кнопку
+    input.addEventListener('change', (ev)=>{
+      const checked = !!ev.target.checked;
+      const ss = state.sessions.find(x=>x.sid===s.sid);
+      if(ss){ ss.readyToFinish = checked; save(state); }
+      finishBtn.disabled = !checked;
+    });
+
+    // timer placeholder (обновляется в updateTimerForCard)
+    const timerEl = document.createElement('div'); timerEl.className='sess-meta'; timerEl.style.fontWeight='700'; timerEl.style.marginLeft='6px';
+    ctr.appendChild(timerEl);
+    updateTimerForCard(s.sid, card);
+  } else {
+    const endedAt = s.ended ? new Date(s.ended).toLocaleTimeString() : '-';
+    const dur = s.duration ? formatDur(s.duration) : '-';
+    const waited = s.waitedSeconds ? formatDur(s.waitedSeconds) : '0м 0с';
+    const footer = document.createElement('div'); footer.className='sess-meta'; footer.innerHTML = `Завершено: ${endedAt} · ${dur} · Ожидал: ${waited}`;
+    card.appendChild(footer);
+  }
+
+  // click to select (only active/waiting) — не мешаем чекбоксу (мы остановили всплытие)
+  if(s.status!=='finished'){
+    card.addEventListener('click', ()=>{
+      selectedSessionId = s.sid;
+      renderSessions();
+    });
+  }
+
+  return card;
+}
+(s, false)));
   // show some finished
   const lastFinished = state.sessions.filter(s=>s.status==='finished').slice(-6).reverse();
   lastFinished.forEach(s=> sessionsArea.appendChild(createSessionCard(s, true)));
@@ -217,7 +290,16 @@ function createSessionCard(s, isFinished=false){
 
     const finishBtn = document.createElement('button'); finishBtn.textContent = 'Завершить'; finishBtn.style.padding='6px 8px'; finishBtn.style.fontSize='13px';
     finishBtn.disabled = true;
-    finishBtn.addEventListener('click', (ev)=>{ ev.stopPropagation(); finishSessionWithCheck(s.sid); });
+    finishBtn.addEventListener('click', (ev)=>{ ev.stopPropagation(); function finishSessionWithCheck(sid){
+  const s = state.sessions.find(x=>x.sid===sid);
+  if(!s) return;
+  // проверяем состояние в state (а не DOM)
+  if(!s.readyToFinish){
+    return alert('Поставьте галочку, чтобы завершить сессию');
+  }
+  finishSession(sid);
+}
+(s.sid); });
     ctr.appendChild(finishBtn);
 
     // wire checkbox -> enable finish
