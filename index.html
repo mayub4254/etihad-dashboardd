@@ -492,8 +492,17 @@ function createSessionCard(s){
 
   card.appendChild(ctr);
 
-  if(s.status !== 'finished'){
-    card.addEventListener('click', ()=>{ selectedSessionId = s.sid; renderSessions(); });
+ if(s.status !== 'finished'){
+    card.addEventListener('click', (e)=>{ 
+        // если кликнули по кнопке или чекбоксу – не переключаем сессию
+        if (e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT' || e.target.type === 'checkbox') {
+            e.stopPropagation();
+            return;
+        }
+        selectedSessionId = s.sid; 
+        renderSessions(); 
+    });
+}
   }
   return card;
 }
