@@ -3,118 +3,54 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>etihadmenu.uz — Кабинет (корпоративный)</title>
+<title>etihadmenu.uz — Кабинет (корпоративный, склад)</title>
 <style>
-  :root{
-    --dark-bg: #0f2f23;
-    --brand-green: #165a3c;
-    --brand-gold: #a67c28;
-    --card:#ffffff;
-    --muted: #9fb1a4;
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background: linear-gradient(180deg,var(--dark-bg), #0b241d);
-    color:#eef6ef;
-    display:flex;
-    align-items:flex-start;
-    justify-content:center;
-    padding:28px;
-  }
-  .frame{
-    width:100%;
-    max-width:1100px;
-    background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-    border-radius:14px;
-    padding:18px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-    border: 1px solid rgba(255,255,255,0.03);
-    color: #f2fbf4;
-  }
+:root{
+  --dark-bg:#0f2f23; --brand-green:#165a3c; --brand-gold:#a67c28; --muted:#9fb1a4;
+  --card: #ffffff;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+  background:linear-gradient(180deg,var(--dark-bg),#0b241d);color:#eef6ef;
+  display:flex;align-items:flex-start;justify-content:center;padding:28px;
+}
+.frame{width:100%;max-width:1200px;background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));border-radius:14px;padding:18px;box-shadow:0 20px 50px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.03)}
+.brand{display:flex;gap:14px;align-items:center}
+.logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--brand-green),#0f6f4d);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--card);box-shadow:0 8px 18px rgba(0,0,0,0.5);font-size:20px}
+h1{margin:0;font-size:20px}
+.subtitle{color:var(--muted);font-size:13px;margin-top:4px}
+.card{margin-top:16px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:12px;padding:14px;border:1px solid rgba(255,255,255,0.03)}
+input,select,button{font-family:inherit}
+input,select{padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);color:#e9f9ec;outline:none}
+input::placeholder{color:rgba(255,255,255,0.35)}
+.actions{display:flex;gap:8px;align-items:center}
+button{background:var(--brand-green);color:#fff;padding:10px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:700;box-shadow:0 6px 18px rgba(22,90,60,0.14)}
+.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#e6f6ea;padding:8px;border-radius:10px}
+.sessions-area{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+.sess-card{width:260px;padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);box-shadow:0 12px 30px rgba(0,0,0,0.45);cursor:pointer;display:flex;flex-direction:column;gap:8px}
+.sess-card.active{outline:3px solid rgba(166,124,40,0.12);transform:translateY(-6px)}
+.sess-card.waiting{opacity:0.98;border-style:dashed;border-color:rgba(255,255,255,0.02)}
+.sess-title{font-weight:800;color:var(--brand-gold);font-size:16px}
+.sess-meta{font-size:13px;color:var(--muted)}
+.sess-items{font-size:13px;color:#e6f6ea;min-height:34px}
+.sess-controls{display:flex;gap:8px;align-items:center;justify-content:flex-end;flex-wrap:wrap}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:12px}
+.menu-item{padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);text-align:center;font-weight:700;color:#f6fff6;cursor:pointer}
+.menu-item small{display:block;color:var(--muted);font-weight:600;margin-top:6px}
+.note{font-size:13px;color:var(--muted);margin-top:8px}
+.table{width:100%;overflow:auto}
+.progress-wrap{display:flex;align-items:center;gap:10px}
+.progress{height:12px;border-radius:8px;background:rgba(255,255,255,0.06);flex:1;overflow:hidden}
+.progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--brand-green),#24a86b);width:0%}
+.prog-text{min-width:100px;text-align:right;color:#eaf7ec;font-weight:700}
+.select-style{color:#eaf7ec;background:rgba(0,0,0,0.12);border:1px solid rgba(255,255,255,0.06)}
+select option{color:#0f2f23;background:#ffffff}
+select option:checked{background:var(--brand-green);color:#ffffff}
 
-  .brand{display:flex;gap:14px;align-items:center}
-  .logo{
-    width:56px;height:56px;border-radius:10px;
-    background:linear-gradient(135deg,var(--brand-green), #0f6f4d);
-    display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--card);
-    box-shadow:0 8px 18px rgba(0,0,0,0.5);
-    font-size:20px;
-  }
-  h1{margin:0;font-size:20px}
-  .subtitle{color:var(--muted);font-size:13px;margin-top:4px}
-
-  .card{
-    margin-top:16px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border-radius:12px;
-    padding:14px;
-    border: 1px solid rgba(255,255,255,0.03);
-  }
-
-  input,select,button{font-family:inherit}
-  input,select{
-    padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);
-    background: rgba(255,255,255,0.02); color: #e9f9ec; outline:none;
-  }
-  input::placeholder{color: rgba(255,255,255,0.35)}
-  .actions{display:flex;gap:8px;align-items:center}
-
-  button{
-    background: var(--brand-green);
-    color:#fff;padding:10px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:700;
-    box-shadow: 0 6px 18px rgba(22,90,60,0.14);
-  }
-  .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#e6f6ea;padding:8px;border-radius:10px}
-
-  .sessions-area{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
-  .sess-card{
-    width:260px;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border:1px solid rgba(255,255,255,0.03); box-shadow:0 12px 30px rgba(0,0,0,0.45); cursor:pointer; display:flex;flex-direction:column;gap:8px;
-  }
-  .sess-card.active{outline:3px solid rgba(166,124,40,0.12);transform:translateY(-6px)}
-  .sess-card.waiting{opacity:0.98;border-style:dashed;border-color:rgba(255,255,255,0.02)}
-  .sess-title{font-weight:800;color:var(--brand-gold);font-size:16px}
-  .sess-meta{font-size:13px;color:var(--muted)}
-  .sess-items{font-size:13px;color:#e6f6ea;min-height:34px}
-
-  .sess-controls{display:flex;gap:8px;align-items:center;justify-content:flex-end;flex-wrap:wrap}
-  label{cursor:pointer}
-  .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:12px}
-  .menu-item{
-    padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border:1px solid rgba(255,255,255,0.03); text-align:center; font-weight:700; color:#f6fff6; cursor:pointer;
-  }
-  .menu-item small{display:block;color:var(--muted);font-weight:600;margin-top:6px}
-
-  .note{font-size:13px;color:var(--muted);margin-top:8px}
-
-  table{width:100%;border-collapse:collapse;margin-top:10px;color:#eaf7ec}
-  th,td{padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.03);font-size:13px}
-  th{color:var(--muted);font-weight:700}
-  .clear-link{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--brand-gold);padding:6px 10px;border-radius:8px;cursor:pointer}
-
-  @media(max-width:980px){ .sess-card{width:calc(50% - 12px)} }
-  @media(max-width:560px){ .sess-card{width:100%} .frame{padding:10px} .menu-grid{grid-template-columns:repeat(2,1fr)} }
- select {
-    color: #eaf7ec;
-    background: rgba(0,0,0,0.12);
-    border: 1px solid rgba(255,255,255,0.06);
-    -webkit-appearance: none;
-    appearance: none;
-  }
-
-  select option {
-    color: #0f2f23;
-    background: #ffffff;
-  }
-
-  select option:checked {
-    background: var(--brand-green);
-    color: #ffffff;
-  }
+@media(max-width:980px){.sess-card{width:calc(50% - 12px)}}
+@media(max-width:560px){.sess-card{width:100%}.frame{padding:10px}.menu-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -123,20 +59,22 @@
       <div class="logo">ET</div>
       <div>
         <h1>etihadmenu.uz — Кабинет</h1>
-        <div class="subtitle">Корпоративный интерфейс — кофеледи и кабинет директора</div>
+        <div class="subtitle">Корпоративный интерфейс — бариста, провинцер, директор</div>
       </div>
     </div>
 
     <!-- LOGIN -->
     <div id="loginCard" class="card">
       <div style="font-weight:800">Войти</div>
-      <div class="note" style="margin-top:6px">Введите логин и пароль (есть демо-кнопка для Одины)</div>
+      <div class="note" style="margin-top:6px">Логин/пароль (есть демо-кнопки)</div>
       <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
         <input id="loginInput" placeholder="Логин (напр. odina)" autocomplete="username" style="flex:1;min-width:160px">
         <input id="passInput" type="password" placeholder="Пароль" autocomplete="current-password" style="width:160px">
         <div style="display:flex;gap:8px;align-items:center">
           <button id="loginBtn">Войти</button>
-          <button id="demoBtn" class="btn-ghost">Демо: Одина</button>
+          <button id="demoBarista" class="btn-ghost">Демо: Одина</button>
+          <button id="demoProv" class="btn-ghost">Демо: Улугбек</button>
+          <button id="demoDir" class="btn-ghost">Демо: Директор</button>
         </div>
       </div>
       <div id="loginError" class="note" style="color:#ffb3a3;display:none;margin-top:8px"></div>
@@ -148,27 +86,61 @@
         <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
           <div>
             <div style="font-weight:800" id="whoName">Одина</div>
-            <div class="note">Можно вести несколько клиентов одновременно; поддерживается ожидание</div>
+            <div class="note">Вести несколько клиентов одновременно; складные индикаторы запасов ниже</div>
           </div>
           <div style="display:flex;gap:8px;align-items:center">
-            <select id="newSessManager"></select>
+            <select id="newSessManager" class="select-style"></select>
             <button id="newSessBtn">Новая сессия</button>
           </div>
         </div>
 
-        <div class="note">Нажми карточку сессии чтобы выбрать её (выделится). Меню добавляет позицию в выбранную карточку. Если у менеджера уже есть активная — новая будет в статусе Ожидание.</div>
+        <div class="note">Нажми карточку сессии чтобы выбрать её. Меню добавляет позицию в выбранную карточку. Если у менеджера уже есть активная — новая будет в статусе Ожидание.</div>
 
-        <div class="sessions-area" id="sessionsArea"></div>
+        <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+          <div style="min-width:320px;flex:1">
+            <div style="font-weight:800;margin-bottom:8px">Запасы (склад)</div>
+            <div id="stocksList"></div>
+            <div style="margin-top:8px" class="note">Одина в конце дня может ввести физический остаток (взвешивание) — это скорректирует систему.</div>
+          </div>
 
-        <div class="menu-grid" id="menuGrid"></div>
+          <div style="flex:2">
+            <div class="sessions-area" id="sessionsArea"></div>
+            <div class="menu-grid" id="menuGrid"></div>
+          </div>
+        </div>
       </div>
 
       <div class="card">
         <h3 style="margin:0">Последние сессии</h3>
         <div id="recentLog" class="note" style="margin-top:8px">Пока пусто</div>
         <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
-          <button id="resetBtn" class="clear-link">Сбросить все сессии</button>
-          <div class="note" style="margin:0">Начать с чистого хранилища (localStorage)</div>
+          <button id="resetBtn" class="btn-ghost">Сбросить все сессии (и склад)</button>
+          <div class="note" style="margin:0">Используй осторожно (удалит данные localStorage для этого приложения).</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROVINCER (Улугбек) -->
+    <div id="provincerView" style="display:none" class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-weight:800">Кабинет провинцера</div>
+          <div class="note">Добавляй поставки — они попадут на склад и будут видны баристе</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button id="provRefresh" class="btn-ghost">Обновить</button>
+        </div>
+      </div>
+
+      <div style="margin-top:12px">
+        <div style="font-weight:700;margin-bottom:8px">Текущий склад</div>
+        <div id="provInventory" class="table"></div>
+
+        <div style="margin-top:12px;font-weight:700">Добавить поставку</div>
+        <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
+          <select id="provRawSelect" style="width:220px"></select>
+          <input id="provQty" placeholder="Количество (г или шт)" style="width:160px">
+          <button id="provAddBtn">Добавить</button>
         </div>
       </div>
     </div>
@@ -178,17 +150,16 @@
       <div style="display:flex;justify-content:space-between;align-items:center">
         <div>
           <div style="font-weight:800">Кабинет директора</div>
-          <div class="note">Отчёты по сотрудникам</div>
+          <div class="note">Отчёты по сотрудникам и склад</div>
         </div>
-        <div><select id="filterUser"><option value="">Все</option></select></div>
       </div>
-      <div id="directorTables"></div>
+      <div id="directorTables" style="margin-top:12px"></div>
     </div>
   </div>
 
 <script>
-/* ---------------- State & Defaults ---------------- */
-const STORAGE_KEY = 'etihad_custom_v1';
+/* ----------------- State ----------------- */
+const KEY = 'etihad_inventory_v2';
 const DEFAULT = {
   users:[
     {id:'od1',login:'odina',password:'1234',name:'Одина',role:'barista'},
@@ -196,67 +167,53 @@ const DEFAULT = {
     {id:'m_amr',login:'amr',password:'2222',name:'Амр',role:'manager'},
     {id:'m_mub',login:'mubina',password:'3333',name:'Мубина',role:'manager'},
     {id:'m_sh',login:'shahnоza',password:'4444',name:'Шахноза',role:'manager'},
+    {id:'prov_ulug',login:'ulugbek',password:'prov123',name:'Улугбек',role:'provincer'},
     {id:'dir1',login:'khurshid',password:'0000',name:'Хуршид',role:'director'}
   ],
-  menu:[
-    {id:'c1',title:'Чёрный чай',cat:'Чай'},
-    {id:'c2',title:'Зелёный чай',cat:'Чай'},
-    {id:'c3',title:'Эспрессо',cat:'Кофе'},
-    {id:'c4',title:'Капучино',cat:'Кофе'},
-    {id:'c5',title:'Апельсиновый сок',cat:'Соки'}
+  // raw items (склад)
+  rawItems:[
+    {id:'coffee_beans',name:'Кофейные зёрна',unit:'g',parLevel:2000},
+    {id:'tea_black',name:'Чёрный чай (шт)',unit:'шт',parLevel:50},
+    {id:'tea_green',name:'Зелёный чай (шт)',unit:'шт',parLevel:50},
+    {id:'orange_juice',name:'Апельсиновый сок (шт)',unit:'шт',parLevel:20}
   ],
-  sessions: []
+  // menu with consumption per 1 порции
+  menu:[
+    {id:'c1',title:'Чёрный чай',cat:'Чай',consumption:[{rawId:'tea_black',amount:1}]},
+    {id:'c2',title:'Зелёный чай',cat:'Чай',consumption:[{rawId:'tea_green',amount:1}]},
+    {id:'c3',title:'Эспрессо',cat:'Кофе',consumption:[{rawId:'coffee_beans',amount:10}]}, // g
+    {id:'c4',title:'Капучино',cat:'Кофе',consumption:[{rawId:'coffee_beans',amount:12}]},
+    {id:'c5',title:'Апельсиновый сок',cat:'Соки',consumption:[{rawId:'orange_juice',amount:1}]}
+  ],
+  // inventory = партии поставок (FIFO)
+  inventory:[
+    // Ulugbek принес
+    {id:'inv1',provId:'prov_ulug',rawId:'coffee_beans',qty:2000,arrivedAt:Date.now()-3600*1000},
+    {id:'inv2',provId:'prov_ulug',rawId:'orange_juice',qty:20,arrivedAt:Date.now()-3600*1000},
+    {id:'inv3',provId:'prov_ulug',rawId:'tea_black',qty:50,arrivedAt:Date.now()-3600*1000},
+    {id:'inv4',provId:'prov_ulug',rawId:'tea_green',qty:50,arrivedAt:Date.now()-3600*1000}
+  ],
+  sessions: [],
+  audit: [] // история списаний/поставок/корректировок
 };
 
 function loadRaw(){
-  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)); }catch(e){ return null; }
+  try{ return JSON.parse(localStorage.getItem(KEY)); }catch(e){ return null; }
 }
-function saveState(st){ localStorage.setItem(STORAGE_KEY, JSON.stringify(st)); }
+function saveState(s){ localStorage.setItem(KEY, JSON.stringify(s)); }
 function now(){ return Date.now(); }
 
-// Load + migration
 function load(){
   let raw = loadRaw();
-  if(!raw){
-    saveState(DEFAULT);
-    return JSON.parse(JSON.stringify(DEFAULT));
-  }
-  // ensure arrays
+  if(!raw){ saveState(DEFAULT); return JSON.parse(JSON.stringify(DEFAULT)); }
+  raw.users = Array.isArray(raw.users) ? raw.users : DEFAULT.users.slice();
+  raw.rawItems = Array.isArray(raw.rawItems) ? raw.rawItems : DEFAULT.rawItems.slice();
+  raw.menu = Array.isArray(raw.menu) ? raw.menu : DEFAULT.menu.slice();
+  raw.inventory = Array.isArray(raw.inventory) ? raw.inventory : DEFAULT.inventory.slice();
   raw.sessions = Array.isArray(raw.sessions) ? raw.sessions : [];
-  raw.menu = Array.isArray(raw.menu) ? raw.menu : (DEFAULT.menu.slice());
-  raw.users = Array.isArray(raw.users) ? raw.users : (DEFAULT.users.slice());
-
-  // validate sessions: ensure fields exist
-  raw.sessions = raw.sessions.map(s=>{
-    s = s || {};
-    s.sid = s.sid || ('s'+(Date.now()+Math.floor(Math.random()*999)));
-    s.userId = s.userId || 'od1';
-    s.managerId = s.managerId || s.manager || '';
-    s.createdAt = s.createdAt || s.created || (Date.now());
-    s.started = s.started || null;
-    s.ended = s.ended || null;
-    s.waitedSeconds = typeof s.waitedSeconds === 'number' ? s.waitedSeconds : 0;
-    s.duration = typeof s.duration === 'number' ? s.duration : (s.ended && s.started ? Math.round((s.ended - s.started)/1000) : null);
-    s.status = s.status || (s.ended ? 'finished' : (s.started ? 'active' : 'waiting'));
-    s.items = Array.isArray(s.items) ? s.items : (s.items ? [s.items] : []);
-    s.readyToFinish = !!s.readyToFinish;
-    return s;
-  });
-
-  // normalize manager sessions: ensure exactly 0 or 1 active per manager
-  const managers = [...new Set(raw.sessions.map(x=>x.managerId).filter(Boolean))];
-  managers.forEach(mid=>{
-    const list = raw.sessions.filter(s=>s.managerId===mid && s.status!=='finished').sort((a,b)=> (a.createdAt||0) - (b.createdAt||0));
-    const hasActive = list.some(s=>s.status==='active');
-    if(!hasActive && list.length) {
-      // oldest becomes active
-      list[0].status = 'active';
-      list[0].started = list[0].started || list[0].createdAt;
-    }
-    // others must be waiting
-    list.forEach((s,idx)=>{ if(s.status!=='finished' && s.status!=='active') s.status='waiting'; });
-  });
-
+  raw.audit = Array.isArray(raw.audit) ? raw.audit : [];
+  // small migration: ensure fields
+  raw.inventory = raw.inventory.map(i=> ({ id:i.id||('inv'+Date.now()+Math.random().toString(36).slice(2,6)), provId:i.provId||'prov_unknown', rawId:i.rawId, qty: Number(i.qty||0), arrivedAt: i.arrivedAt||Date.now() }));
   saveState(raw);
   return raw;
 }
@@ -265,17 +222,19 @@ let state = load();
 let currentUser = null;
 let selectedSessionId = null;
 let timers = {};
-let lastNewAt = 0;
 
-/* ---------------- Refs ---------------- */
+/* ------------- Refs ------------- */
 const loginCard = document.getElementById('loginCard');
 const mainView = document.getElementById('mainView');
+const provView = document.getElementById('provincerView');
 const directorView = document.getElementById('directorView');
+
 const loginInput = document.getElementById('loginInput');
 const passInput = document.getElementById('passInput');
 const loginBtn = document.getElementById('loginBtn');
-const demoBtn = document.getElementById('demoBtn');
-const loginError = document.getElementById('loginError');
+const demoBarista = document.getElementById('demoBarista');
+const demoProv = document.getElementById('demoProv');
+const demoDir = document.getElementById('demoDir');
 
 const whoName = document.getElementById('whoName');
 const newSessManager = document.getElementById('newSessManager');
@@ -283,17 +242,149 @@ const newSessBtn = document.getElementById('newSessBtn');
 const sessionsArea = document.getElementById('sessionsArea');
 const menuGrid = document.getElementById('menuGrid');
 const recentLog = document.getElementById('recentLog');
-
-const filterUser = document.getElementById('filterUser');
-const directorTables = document.getElementById('directorTables');
+const stocksList = document.getElementById('stocksList');
 const resetBtn = document.getElementById('resetBtn');
 
-/* ---------------- Helpers ---------------- */
-function findUserByLogin(l,p){ return state.users.find(u=>String(u.login||'').trim().toLowerCase()===String(l||'').trim().toLowerCase() && String(u.password||'')===String(p||'')); }
-function findUserById(id){ return state.users.find(u=>u.id===id) || {name: id || '—'}; }
-function formatDur(sec){ const h=Math.floor(sec/3600), m=Math.floor((sec%3600)/60), s=sec%60; if(h>0) return `${h}ч ${m}м ${s}с`; return `${m}м ${s}с`; }
+const provInventory = document.getElementById('provInventory');
+const provRawSelect = document.getElementById('provRawSelect');
+const provQty = document.getElementById('provQty');
+const provAddBtn = document.getElementById('provAddBtn');
+const provRefresh = document.getElementById('provRefresh');
 
-/* ---------------- Render ---------------- */
+const directorTables = document.getElementById('directorTables');
+
+/* ------------- Helpers ------------- */
+function findUserByLogin(l,p){ return state.users.find(u=>String(u.login||'').trim().toLowerCase()===String(l||'').trim().toLowerCase() && String(u.password||'')===String(p||'')); }
+function findUserById(id){ return state.users.find(u=>u.id===id) || {name:id||'—'}; }
+function formatDur(sec){ const h=Math.floor(sec/3600), m=Math.floor((sec%3600)/60), s=sec%60; if(h>0) return `${h}ч ${m}м ${s}с`; return `${m}м ${s}с`; }
+function totalRemaining(rawId){ return state.inventory.filter(i=>i.rawId===rawId).reduce((s,i)=> s + (Number(i.qty)||0), 0); }
+function pushAudit(rec){ state.audit.unshift(Object.assign({at:now()}, rec)); if(state.audit.length>1000) state.audit.length=1000; saveState(state); }
+
+/* ------------- Inventory consumption (FIFO) ------------- */
+// проверяет хватает ли всего, и если хватает — списывает по FIFO и возвращает true; иначе false (не списывает)
+function canConsume(menuId, qty=1){
+  const menuItem = state.menu.find(m=>m.id===menuId);
+  if(!menuItem || !Array.isArray(menuItem.consumption)) return true;
+  for(const c of menuItem.consumption){
+    const need = c.amount * qty;
+    const total = totalRemaining(c.rawId);
+    if(total < need) return false;
+  }
+  return true;
+}
+
+function consumeForMenu(menuId, qty=1, actorId=null){
+  const menuItem = state.menu.find(m=>m.id===menuId);
+  if(!menuItem || !Array.isArray(menuItem.consumption)) return true;
+  // проверка
+  if(!canConsume(menuId, qty)) return false;
+  // списание
+  for(const c of menuItem.consumption){
+    let need = c.amount * qty;
+    // сортируем партии по старшинству (FIFO)
+    const pile = state.inventory.filter(inv=>inv.rawId===c.rawId).sort((a,b)=> (a.arrivedAt||0) - (b.arrivedAt||0));
+    for(const slot of pile){
+      if(need <= 0) break;
+      const take = Math.min(need, slot.qty);
+      if(take > 0){
+        // уменьшаем
+        slot.qty = Math.round((slot.qty - take) * 100)/100;
+        pushAudit({type:'consume', actor: actorId||'system', menuId, rawId:c.rawId, amount:take, fromInv: slot.id});
+      }
+      need -= take;
+    }
+  }
+  // убрать полностью нулевые партии (можно сохранять, но удобнее очистить)
+  state.inventory = state.inventory.filter(inv=> Number(inv.qty) > 0 );
+  saveState(state);
+  return true;
+}
+
+/* ------------- Render stock indicators ------------- */
+function renderStocks(){
+  stocksList.innerHTML = '';
+  state.rawItems.forEach(raw=>{
+    const current = totalRemaining(raw.id);
+    const par = raw.parLevel || Math.max(1, current);
+    const percent = Math.min(100, Math.round((current / par) * 100));
+    // color thresholds
+    let barColor = 'linear-gradient(90deg,var(--brand-green),#24a86b)';
+    if(percent <= 20) barColor = 'linear-gradient(90deg,#d64545,#c43b3b)';
+    else if(percent <= 50) barColor = 'linear-gradient(90deg,#e6b83c,#d89d2b)';
+    const wrap = document.createElement('div');
+    wrap.style.marginBottom = '8px';
+    wrap.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-weight:700">${raw.name}</div>
+        <div style="font-size:13px">${current} ${raw.unit} · ${percent}%</div>
+      </div>
+      <div class="progress-wrap" style="margin-top:6px">
+        <div class="progress"><i style="width:${percent}%;background:${barColor}"></i></div>
+        <div class="prog-text">${Math.round(percent)}%</div>
+      </div>
+      <div style="margin-top:6px" class="note">
+        <button class="btn-ghost" data-raw="${raw.id}" data-action="reconcile">Ввести остаток (взвесил)</button>
+      </div>
+    `;
+    stocksList.appendChild(wrap);
+  });
+  // attach handlers for reconcile
+  Array.from(stocksList.querySelectorAll('button[data-action="reconcile"]')).forEach(b=>{
+    b.addEventListener('click', (e)=>{
+      const rawId = b.dataset.raw;
+      const raw = state.rawItems.find(r=>r.id===rawId);
+      const ans = prompt(`Введите фактический остаток для "${raw.name}" в ${raw.unit} (число):`, String(totalRemaining(rawId)));
+      if(ans === null) return;
+      const val = Number(ans);
+      if(isNaN(val)) return alert('Введите число');
+      // корректировка: difference = actual - systemCurrent -> создаём запись correction с provId:'system'
+      const current = totalRemaining(rawId);
+      const diff = Math.round((val - current) * 100)/100;
+      if(diff === 0) return alert('Разницы нет, всё в порядке');
+      const rec = { id:'inv_c_'+Date.now(), provId:'system', rawId, qty: Math.abs(diff), arrivedAt: Date.now() };
+      if(diff > 0){
+        // добавляем партию с положительным qty
+        state.inventory.push(rec);
+        pushAudit({type:'reconcile_add', rawId, amount: diff, by: currentUser ? currentUser.id : 'unknown'});
+      } else {
+        // отрицательная корректировка — уменьшаем FIFO (списываем)
+        let need = Math.abs(diff);
+        const pile = state.inventory.filter(inv=>inv.rawId===rawId).sort((a,b)=> (a.arrivedAt||0) - (b.arrivedAt||0));
+        for(const slot of pile){
+          if(need <= 0) break;
+          const take = Math.min(need, slot.qty);
+          slot.qty = Math.round((slot.qty - take) * 100)/100;
+          need -= take;
+          pushAudit({type:'reconcile_sub', rawId, amount: take, fromInv: slot.id, by: currentUser ? currentUser.id : 'unknown'});
+        }
+        // remove zeros
+        state.inventory = state.inventory.filter(inv=>Number(inv.qty) > 0);
+      }
+      saveState(state);
+      renderStocks(); renderProvInventory(); renderSessions(); renderDirectorTables();
+      alert('Корректировка выполнена');
+    });
+  });
+}
+
+/* ------------- Render prov inventory view ------------- */
+function renderProvInventory(){
+  // table of current inventory partitions
+  let html = '<table style="width:100%"><thead><tr><th>Пров</th><th>Сырьё</th><th>Остаток</th><th>Пришло</th></tr></thead><tbody>';
+  const sorted = state.inventory.slice().sort((a,b)=> (b.arrivedAt||0) - (a.arrivedAt||0));
+  sorted.forEach(r=>{
+    const prov = findUserById(r.provId).name || r.provId;
+    const raw = state.rawItems.find(x=>x.id===r.rawId)?.name || r.rawId;
+    html += `<tr><td>${prov}</td><td>${raw}</td><td>${r.qty}</td><td>${new Date(r.arrivedAt).toLocaleString()}</td></tr>`;
+  });
+  html += '</tbody></table>';
+  provInventory.innerHTML = html;
+  // fill select
+  provRawSelect.innerHTML = '';
+  state.rawItems.forEach(r=>{ const o = document.createElement('option'); o.value=r.id; o.textContent = r.name; provRawSelect.appendChild(o); });
+}
+
+/* ------------- Render menu & sessions (barista) ------------- */
 function renderMenu(){
   menuGrid.innerHTML = '';
   state.menu.forEach(it=>{
@@ -305,17 +396,11 @@ function renderMenu(){
 function renderManagersList(){
   newSessManager.innerHTML = '';
   state.users.filter(u=>u.role==='manager').forEach(m=>{
-    const o = document.createElement('option'); o.value = m.id; o.textContent = m.name; newSessManager.appendChild(o);
+    const o = document.createElement('option'); o.value=m.id; o.textContent=m.name; newSessManager.appendChild(o);
   });
-  filterUser.innerHTML = '<option value="">Все</option>';
-  state.users.forEach(u=>{ const opt=document.createElement('option'); opt.value=u.id; opt.textContent = `${u.name} — ${u.role}`; filterUser.appendChild(opt); });
 }
 
-function clearTimers(){
-  Object.keys(timers).forEach(k=>{
-    clearInterval(timers[k]); delete timers[k];
-  });
-}
+function clearTimers(){ Object.keys(timers).forEach(k=>{ clearInterval(timers[k]); delete timers[k]; }); }
 
 function renderSessions(){
   clearTimers();
@@ -324,7 +409,7 @@ function renderSessions(){
   const waiting = state.sessions.filter(s=>s.status==='waiting');
   const finished = state.sessions.filter(s=>s.status==='finished').slice(-8).reverse();
   const list = [...active, ...waiting, ...finished];
-  list.forEach(s => sessionsArea.appendChild(createSessionCard(s)));
+  list.forEach(s=> sessionsArea.appendChild(createSessionCard(s)));
 }
 
 function createSessionCard(s){
@@ -339,7 +424,7 @@ function createSessionCard(s){
   card.innerHTML = `<div class="sess-title">${userName}</div><div class="sess-meta">${managerName} · ${statusLabel} · ${createdLabel}</div>`;
 
   const items = document.createElement('div'); items.className='sess-items';
-  items.textContent = (s.items || []).map(it=>it.title).join(', ') || '(пусто)';
+  items.textContent = (s.items||[]).map(it=>it.title).join(', ') || '(пусто)';
   card.appendChild(items);
 
   const ctr = document.createElement('div'); ctr.className='sess-controls';
@@ -351,32 +436,29 @@ function createSessionCard(s){
     ctr.appendChild(waitedEl);
 
     const startBtn = document.createElement('button'); startBtn.textContent = 'Начать обслуживание'; startBtn.style.padding='6px 8px'; startBtn.style.fontSize='13px';
-    startBtn.addEventListener('click', ev => { ev.stopPropagation(); startServiceForSession(s.sid); });
+    startBtn.addEventListener('click', ev=>{ ev.stopPropagation(); startServiceForSession(s.sid); });
     ctr.appendChild(startBtn);
 
-    // live update waiting time
     timers[s.sid] = setInterval(()=>{
       const elMeta = card.querySelector('.sess-meta');
       if(elMeta){
         const waitedNow = s.createdAt ? Math.round((now() - s.createdAt)/1000) : 0;
         elMeta.textContent = `${managerName} · ${statusLabel} · ${createdLabel} · Ждет ${formatDur(waitedNow)}`;
       }
-    }, 1000);
+    },1000);
 
   } else if(s.status === 'active'){
     const chkWrap = document.createElement('label');
     chkWrap.style.display='flex'; chkWrap.style.alignItems='center'; chkWrap.style.gap='8px'; chkWrap.style.fontSize='13px';
-    const input = document.createElement('input'); input.type='checkbox'; input.dataset.sid = s.sid;
-    input.title = 'Поставьте галочку если стол очищен';
-    input.addEventListener('click', e => e.stopPropagation());
+    const input = document.createElement('input'); input.type='checkbox'; input.dataset.sid=s.sid; input.title='Поставьте галочку если стол очищен';
     input.checked = !!s.readyToFinish;
-    const span = document.createElement('span'); span.textContent = 'Стол очищен';
+    const span = document.createElement('span'); span.textContent='Стол очищен';
     chkWrap.appendChild(input); chkWrap.appendChild(span);
     ctr.appendChild(chkWrap);
 
-    const finishBtn = document.createElement('button'); finishBtn.textContent = 'Завершить'; finishBtn.style.padding='6px 8px'; finishBtn.style.fontSize='13px';
+    const finishBtn = document.createElement('button'); finishBtn.textContent='Завершить'; finishBtn.style.padding='6px 8px'; finishBtn.style.fontSize='13px';
     finishBtn.disabled = !input.checked;
-    finishBtn.addEventListener('click', ev => { ev.stopPropagation(); finishSessionWithCheck(s.sid); });
+    finishBtn.addEventListener('click', ev=>{ ev.stopPropagation(); finishSessionWithCheck(s.sid); });
     ctr.appendChild(finishBtn);
 
     const timerEl = document.createElement('div'); timerEl.className='sess-meta'; timerEl.style.fontWeight='700'; timerEl.style.marginLeft='6px';
@@ -389,19 +471,18 @@ function createSessionCard(s){
       finishBtn.disabled = !checked;
     });
 
-    // update active timer: show manager · startedTime · elapsed
     function updateActiveTimer(){
       const ss = state.sessions.find(x=>x.sid===s.sid);
-      if(!ss || ss.status !== 'active'){ if(timers[s.sid]){ clearInterval(timers[s.sid]); delete timers[s.sid]; } return; }
+      if(!ss || ss.status!=='active'){ if(timers[s.sid]){ clearInterval(timers[s.sid]); delete timers[s.sid]; } return; }
       const tEl = timerEl;
       const timeLabel = ss.started ? new Date(ss.started).toLocaleTimeString() : (ss.createdAt ? new Date(ss.createdAt).toLocaleTimeString() : '-');
       const elapsed = ss.started ? formatDur(Math.round((Date.now() - ss.started)/1000)) : '-';
       tEl.textContent = `${managerName} · ${timeLabel} · ${elapsed}`;
     }
     updateActiveTimer();
-    timers[s.sid] = setInterval(updateActiveTimer, 1000);
+    timers[s.sid] = setInterval(updateActiveTimer,1000);
 
-  } else { // finished
+  } else {
     const endedAt = s.ended ? new Date(s.ended).toLocaleTimeString() : '-';
     const dur = s.duration ? formatDur(s.duration) : '-';
     const waited = s.waitedSeconds ? formatDur(s.waitedSeconds) : '-';
@@ -412,18 +493,15 @@ function createSessionCard(s){
   card.appendChild(ctr);
 
   if(s.status !== 'finished'){
-    card.addEventListener('click', ()=>{
-      selectedSessionId = s.sid;
-      renderSessions();
-    });
+    card.addEventListener('click', ()=>{ selectedSessionId = s.sid; renderSessions(); });
   }
-
   return card;
 }
 
-/* ---------------- Session flow ---------------- */
+/* ------------- Session flow ------------- */
+let lastNewAt = 0;
 function startNewSession(managerId){
-  if(Date.now() - lastNewAt < 700) return; // prevent double
+  if(Date.now() - lastNewAt < 700) return;
   lastNewAt = Date.now();
   if(!currentUser) return alert('Не авторизован');
   if(!managerId) return alert('Выберите менеджера');
@@ -433,8 +511,8 @@ function startNewSession(managerId){
   const status = hasActive ? 'waiting' : 'active';
   const s = { sid, userId: currentUser.id, managerId, createdAt: nowTs, started: status==='active' ? nowTs : null, waitedSeconds: 0, ended: null, duration: null, status, items: [], readyToFinish:false };
   state.sessions.push(s); saveState(state);
-  if(status === 'active') selectedSessionId = sid;
-  renderSessions(); renderRecentLog(); renderDirectorTables();
+  if(status==='active') selectedSessionId = sid;
+  renderSessions(); renderRecentLog(); renderDirectorTables(); renderStocks(); renderProvInventory();
 }
 
 function startServiceForSession(sid){
@@ -445,12 +523,12 @@ function startServiceForSession(sid){
   s.status = 'active';
   saveState(state);
   selectedSessionId = sid;
-  renderSessions(); renderRecentLog(); renderDirectorTables();
+  renderSessions(); renderRecentLog(); renderDirectorTables(); renderStocks();
 }
 
 function finishSessionWithCheck(sid){
   const s = state.sessions.find(x=>x.sid===sid); if(!s) return;
-  if(!s.readyToFinish) return alert('Поставьте галочку "Стол очищен", чтобы завершить сессию');
+  if(!s.readyToFinish) return alert('Поставьте галочку "Стол очищен"');
   finishSession(sid);
 }
 
@@ -463,13 +541,14 @@ function finishSession(sid){
     s.status = 'finished';
     saveState(state);
   }
-  if(selectedSessionId === sid) selectedSessionId = null;
-  renderSessions(); renderRecentLog(); renderDirectorTables();
+  if(selectedSessionId===sid) selectedSessionId=null;
+  renderSessions(); renderRecentLog(); renderDirectorTables(); renderStocks();
 }
 
-/* ---------------- Add item ---------------- */
+/* ------------- Add item ------------- */
 function addItemToSession(itemId){
   const item = state.menu.find(m=>m.id===itemId); if(!item) return;
+  // выбранная сессия > любая active > любая waiting
   let target = state.sessions.find(s=>s.sid===selectedSessionId && s.status!=='finished');
   if(!target){
     const actives = state.sessions.filter(s=>s.status==='active');
@@ -479,17 +558,23 @@ function addItemToSession(itemId){
     const waitings = state.sessions.filter(s=>s.status==='waiting');
     target = waitings.length ? waitings[waitings.length-1] : null;
   }
-  if(!target) { alert('Нет открытой сессии. Создайте новую сессию.'); return; }
-  target.items.push({ title: item.title, at: now() });
+  if(!target) { alert('Нет открытой сессии. Создайте новую.'); return; }
+
+  // попытка списания складских ресурсов
+  const ok = consumeForMenu(itemId, 1, currentUser ? currentUser.id : 'unknown');
+  if(!ok){
+    return alert('Недостаточно запасов сырья для этого напитка. Сообщите провинцеру.');
+  }
+  target.items.push({ title: item.title, at: now(), menuId: item.id });
   saveState(state);
-  renderSessions(); renderRecentLog(); renderDirectorTables();
+  renderSessions(); renderRecentLog(); renderDirectorTables(); renderStocks(); renderProvInventory();
 }
 
-/* ---------------- Logs / Director ---------------- */
+/* ------------- Logs / Director ------------- */
 function renderRecentLog(){
   const rows = state.sessions.slice().reverse().slice(0,8);
   if(!rows.length){ recentLog.textContent='Пока пусто'; return; }
-  let html = '<table><thead><tr><th>Сотрудник</th><th>Менеджер</th><th>Время</th><th>Статус</th><th>Позиции</th></tr></thead><tbody>';
+  let html = '<table style="width:100%"><thead><tr><th>Сотрудник</th><th>Менеджер</th><th>Время</th><th>Статус</th><th>Позиции</th></tr></thead><tbody>';
   rows.forEach(s=>{
     const u = findUserById(s.userId).name;
     const m = findUserById(s.managerId).name || '-';
@@ -503,56 +588,80 @@ function renderRecentLog(){
 }
 
 function renderDirectorTables(){
-  const f = filterUser.value;
-  const rows = state.sessions.slice().reverse().filter(s=> !f || s.userId===f);
-  let html = '<div style="overflow:auto"><table><thead><tr><th>Сотрудник</th><th>Менеджер</th><th>Начало</th><th>Завершение</th><th>Длительность</th><th>Ожидание</th><th>В ожидании</th><th>Во время обслуживания</th></tr></thead><tbody>';
-  rows.forEach(s=>{
-    const u = findUserById(s.userId).name;
-    const m = findUserById(s.managerId).name || '-';
-    const start = s.started ? new Date(s.started).toLocaleString() : (s.createdAt ? 'ожидал' : '-');
-    const end = s.ended ? new Date(s.ended).toLocaleString() : (s.started ? 'активна' : '-');
-    const dur = s.duration ? formatDur(s.duration) : (s.started ? formatDur(Math.round((now()-s.started)/1000)) : '-');
-    const waited = s.waitedSeconds ? formatDur(s.waitedSeconds) : '-';
-    const waitingItems = [], servingItems = [];
-    (s.items||[]).forEach(it=>{ if(s.started && it.at >= s.started) servingItems.push(it.title); else waitingItems.push(it.title); });
-    const w = waitingItems.length ? waitingItems.join('; ') : '-';
-    const sv = servingItems.length ? servingItems.join('; ') : '-';
-    html += `<tr><td>${u}</td><td>${m}</td><td>${start}</td><td>${end}</td><td>${dur}</td><td>${waited}</td><td>${w}</td><td>${sv}</td></tr>`;
+  // inventory + audit + sessions
+  let html = '<div style="margin-bottom:12px"><h3>Склад (сводка)</h3>';
+  state.rawItems.forEach(r=>{
+    html += `<div style="margin-bottom:6px"><b>${r.name}</b>: ${totalRemaining(r.id)} ${r.unit}</div>`;
+  });
+  html += '</div>';
+  // audit
+  html += '<div style="margin-top:12px"><h3>Журнал (последние действия)</h3><table style="width:100%"><thead><tr><th>Время</th><th>Тип</th><th>Детали</th></tr></thead><tbody>';
+  state.audit.slice(0,200).forEach(a=>{
+    const t = new Date(a.at).toLocaleString();
+    html += `<tr><td>${t}</td><td>${a.type}</td><td>${JSON.stringify(a)}</td></tr>`;
   });
   html += '</tbody></table></div>';
   directorTables.innerHTML = html;
 }
 
-/* ---------------- Events ---------------- */
+/* ------------- Events & Init ------------- */
 loginBtn.addEventListener('click', ()=>{
   const l = String(loginInput.value||'').trim().toLowerCase();
   const p = String(passInput.value||'');
-  if(!l || !p){ loginError.style.display='block'; loginError.textContent='Введите логин и пароль'; return; }
+  if(!l || !p){ alert('Введите логин и пароль'); return; }
   const user = findUserByLogin(l,p);
-  if(!user){ loginError.style.display='block'; loginError.textContent='Неверный логин или пароль'; return; }
-  loginError.style.display='none';
+  if(!user){ alert('Неверный логин/пароль'); return; }
   currentUser = user;
-  if(user.role === 'barista'){
-    loginCard.style.display='none'; mainView.style.display='block'; directorView.style.display='none';
+  loginCard.style.display='none';
+  if(user.role==='barista'){
+    mainView.style.display='block'; provView.style.display='none'; directorView.style.display='none';
     whoName.textContent = user.name;
-    renderManagersList(); renderMenu(); renderSessions(); renderRecentLog();
-  } else if(user.role === 'director'){
-    loginCard.style.display='none'; mainView.style.display='none'; directorView.style.display='block';
-    renderManagersList(); renderDirectorTables();
+    renderManagersList(); renderMenu(); renderSessions(); renderRecentLog(); renderStocks(); renderProvInventory();
+  } else if(user.role==='provincer'){
+    mainView.style.display='none'; provView.style.display='block'; directorView.style.display='none';
+    renderProvInventory(); renderStocks();
+  } else if(user.role==='director'){
+    mainView.style.display='none'; provView.style.display='none'; directorView.style.display='block';
+    renderDirectorTables(); renderStocks(); renderProvInventory();
   } else {
-    alert('Поддерживаются кабинеты: кофеледи и директор. Войдите соответствующим пользователем.');
+    alert('Роль не поддерживается');
   }
 });
-demoBtn.addEventListener('click', ()=>{ const u = state.users.find(x=>x.login==='odina'); if(u){ loginInput.value='odina'; passInput.value='1234'; loginBtn.click(); } });
+
+demoBarista.addEventListener('click', ()=>{ loginInput.value='odina'; passInput.value='1234'; loginBtn.click(); });
+demoProv.addEventListener('click', ()=>{ loginInput.value='ulugbek'; passInput.value='prov123'; loginBtn.click(); });
+demoDir.addEventListener('click', ()=>{ loginInput.value='khurshid'; passInput.value='0000'; loginBtn.click(); });
 
 newSessBtn.addEventListener('click', ()=>{ const m = newSessManager.value; if(!m) return alert('Выберите менеджера'); startNewSession(m); });
-menuGrid.addEventListener('click', (e)=>{ const el = e.target.closest('.menu-item'); if(!el) return; addItemToSession(el.dataset.id); });
-filterUser.addEventListener('change', ()=> renderDirectorTables());
-resetBtn.addEventListener('click', ()=>{ if(!confirm('Сбросить все сессии и начать с нуля?')) return; state.sessions = []; saveState(state); renderSessions(); renderRecentLog(); renderDirectorTables(); });
+menuGrid.addEventListener('click', e=>{ const el = e.target.closest('.menu-item'); if(!el) return; addItemToSession(el.dataset.id); });
 
-/* ---------------- Init ---------------- */
-renderManagersList(); renderMenu(); renderRecentLog();
-console.log('etihadmenu app ready — users:', state.users.map(u=>({login:u.login,role:u.role})));
+resetBtn.addEventListener('click', ()=>{
+  if(!confirm('Сбросить все данные приложения (включая склад)?')) return;
+  localStorage.removeItem(KEY);
+  state = load();
+  location.reload();
+});
+
+provAddBtn.addEventListener('click', ()=>{
+  const rawId = provRawSelect.value;
+  const qty = Number(provQty.value || 0);
+  if(!rawId || qty <= 0) return alert('Выберите сырьё и укажите количество (число)');
+  const rec = { id:'inv_'+Date.now(), provId: currentUser ? currentUser.id : 'prov_manual', rawId, qty: Math.round(qty*100)/100, arrivedAt: Date.now() };
+  state.inventory.push(rec);
+  pushAudit({type:'supply', provId: rec.provId, rawId, amount: rec.qty});
+  saveState(state);
+  provQty.value = '';
+  renderProvInventory(); renderStocks(); renderSessions(); renderDirectorTables();
+  alert('Поставка добавлена');
+});
+
+provRefresh.addEventListener('click', ()=>{ renderProvInventory(); renderStocks(); });
+
+/* ------------- Init UI ------------- */
+renderManagersList(); renderMenu(); renderStocks(); renderProvInventory();
+console.log('App loaded. Logins: odina, ulugbek, khurshid.');
+
+/* ------------- END ------------- */
 </script>
 </body>
 </html>
