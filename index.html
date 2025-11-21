@@ -492,16 +492,17 @@ function createSessionCard(s){
 
   card.appendChild(ctr);
 
- if(s.status !== 'finished'){
-    card.addEventListener('click', (e)=>{ 
-        // если кликнули по кнопке или чекбоксу – не переключаем сессию
-        if (e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT' || e.target.type === 'checkbox') {
-            e.stopPropagation();
-            return;
-        }
-        selectedSessionId = s.sid; 
-        renderSessions(); 
-    });
+if (s.status !== 'finished') {
+  card.addEventListener('click', (e) => {
+    // Если нажали на чекбокс, текст около него, или кнопку — ничего не делаем
+    if (e.target.closest('.sess-controls')) {
+      return;
+    }
+
+    // В остальных случаях — выбираем карточку
+    selectedSessionId = s.sid;
+    renderSessions();
+  });
 }
   }
   return card;
