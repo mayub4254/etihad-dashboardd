@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>etihadmenu.uz — Кабинет (финальная версия)</title>
+<style>
+:root{--dark-bg:#0f2f23;--brand-green:#165a3c;--brand-gold:#a67c28;--muted:#9fb1a4;--card:#ffffff}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial, sans-serif;background:linear-gradient(180deg,var(--dark-bg),#0b241d);color:#eef6ef;display:flex;align-items:flex-start;justify-content:center;padding:20px}
+.container{width:100%;max-width:1200px;background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));border-radius:12px;padding:16px;box-shadow:0 20px 50px rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.03)}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,var(--brand-green),#0f6f4d);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--card);box-shadow:0 8px 18px rgba(0,0,0,0.5);font-size:18px}
+h1{margin:0;font-size:20px}
+.subtitle{color:var(--muted);font-size:13px;margin-top:4px}
+.card{margin-top:14px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:10px;padding:12px;border:1px solid rgba(255,255,255,0.03)}
+input,select,button{font-family:inherit}
+input,select{padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);color:#e9f9ec;outline:none}
+input::placeholder{color:rgba(255,255,255,0.35)}
+button{background:var(--brand-green);color:#fff;padding:10px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:700;box-shadow:0 6px 18px rgba(22,90,60,0.14)}
+.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#e6f6ea;padding:8px;border-radius:10px}
+.sessions-area{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+.sess-card{width:260px;padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);box-shadow:0 12px 30px rgba(0,0,0,0.45);cursor:pointer;display:flex;flex-direction:column;gap:8px}
+.sess-card.active{outline:3px solid rgba(166,124,40,0.12);transform:translateY(-6px)}
+.sess-card.waiting{opacity:0.98;border-style:dashed;border-color:rgba(255,255,255,0.02)}
+.sess-title{font-weight:800;color:var(--brand-gold);font-size:16px}
+.sess-meta{font-size:13px;color:var(--muted)}
+.sess-items{font-size:13px;color:#e6f6ea;min-height:34px}
+.sess-controls{display:flex;gap:8px;align-items:center;justify-content:flex-end;flex-wrap:wrap}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:12px}
+.menu-item{padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);text-align:center;font-weight:700;color:#f6fff6;cursor:pointer}
+.menu-item small{display:block;color:var(--muted);font-weight:600;margin-top:6px}
+.note{font-size:13px;color:var(--muted);margin-top:8px}
+.progress-wrap{display:flex;align-items:center;gap:10px}
+.progress{height:12px;border-radius:8px;background:rgba(255,255,255,0.06);flex:1;overflow:hidden}
+.progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--brand-green),#24a86b);width:0%}
+.prog-text{min-width:100px;text-align:right;color:#eaf7ec;font-weight:700}
+.select-style{color:#eaf7ec;background:rgba(0,0,0,0.12);border:1px solid rgba(255,255,255,0.06)}
+select option{color:#0f2f23;background:#ffffff}
+select option:checked{background:var(--brand-green);color:#ffffff}
+.table td, .table th{padding:6px 8px;border-bottom:1px solid rgba(255,255,255,0.02)}
+.table-wrap{overflow:auto}
+@media(max-width:980px){.sess-card{width:calc(50% - 12px)}}
+@media(max-width:720px){
+  body{padding:10px}
+  .container{padding:12px}
+  .logo{width:44px;height:44px;font-size:16px}
+  .sess-card{width:100% !important;padding:12px}
+  .menu-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .menu-item{padding:14px;font-size:15px}
+  .progress-wrap .prog-text{min-width:70px;font-size:13px}
+  input, button{padding:12px}
+  .sess-controls{gap:6px}
+}
+@media (max-width:480px) {
+  body { font-size: 14px; }
+  h1, h2, h3 { font-size: 18px; }
+  .inv-row { font-size: 13px; }
+  .btn, button { font-size: 14px; padding: 8px 12px; }
+  .progress-label { font-size: 13px; }
+  table { font-size: 12px; }
+  .card { padding: 10px; }
+  .session-card { width: 100%; margin: 6px 0; }
+  .sess-meta { font-size: 12px; }
+  .menu-item { font-size: 13px; padding: 10px; }
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+</style>
+</head>
+<body>
+  <div class="container" id="app">
+    <div class="brand">
+      <div class="logo">ET</div>
+      <div>
+        <h1>etihadmenu.uz — Кабинет</h1>
+        <div class="subtitle">Финальная версия — все роли, склад, журнал, адаптив</div>
+      </div>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="loginCard" class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-weight:800">Войти</div>
+          <div class="note" style="margin-top:6px">Логин/пароль (есть демо-кнопки)</div>
+        </div>
+        <div>
+          <button id="helpBack" class="btn-ghost">Назад</button>
+        </div>
+      </div>
+
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <input id="loginInput" placeholder="Логин (напр. odina)" autocomplete="username" style="flex:1;min-width:160px">
+        <input id="passInput" type="password" placeholder="Пароль" autocomplete="current-password" style="width:160px">
+        <div style="display:flex;gap:8px;align-items:center">
+          <button id="loginBtn">Войти</button>
+          <button id="demoBarista" class="btn-ghost">Демо: Одина</button>
+          <button id="demoProv" class="btn-ghost">Демо: Улугбек</button>
+          <button id="demoDir" class="btn-ghost">Демо: Директор</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN (barista) -->
+    <div id="mainView" style="display:none">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div>
+            <div style="font-weight:800" id="whoName">Одина</div>
+            <div class="note">Выберите сессию и добавляйте позиции. Кнопки и чекбокс работают корректно.</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <select id="newSessManager" class="select-style"></select>
+            <button id="newSessBtn">Новая сессия</button>
+            <button id="logoutBtn" class="btn-ghost">Выйти</button>
+          </div>
+        </div>
+
+        <div class="note">Нажми карточку сессии чтобы выбрать её. Меню добавляет позицию в выбранную карточку.</div>
+
+        <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+          <div style="min-width:320px;flex:1">
+            <div style="font-weight:800;margin-bottom:8px">Запасы (склад)</div>
+            <div id="stocksList"></div>
+            <div style="margin-top:8px" class="note">В конце дня вводятся остатки — происходит корректировка.</div>
+          </div>
+
+          <div style="flex:2">
+            <div class="sessions-area" id="sessionsArea"></div>
+            <div class="menu-grid" id="menuGrid"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin:0">Последние сессии</h3>
+        <div id="recentLog" class="note" style="margin-top:8px">Пока пусто</div>
+        <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
+          <button id="resetBtn" class="btn-ghost">Сбросить все данные</button>
+          <div class="note" style="margin:0">Удаляет localStorage для приложения.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROVINCER (supplier) -->
+    <div id="provincerView" style="display:none" class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-weight:800">Кабинет провинцера</div>
+          <div class="note">Добавляй поставки — они видны баристе. И видны уровни запасов.</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button id="provBack" class="btn-ghost">Назад</button>
+          <button id="provRefresh" class="btn-ghost">Обновить</button>
+        </div>
+      </div>
+
+      <div style="margin-top:12px">
+        <div style="font-weight:700;margin-bottom:8px">Текущий склад</div>
+        <div id="provStocksList"></div>
+        <div style="margin-top:12px;font-weight:700">Сводка по партиям</div>
+        <div id="provInventory" class="table table-wrap"></div>
+
+        <div style="margin-top:12px;font-weight:700">Добавить поставку</div>
+        <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
+          <select id="provRawSelect" style="width:220px"></select>
+          <input id="provQty" placeholder="Количество (г или шт)" style="width:160px">
+          <button id="provAddBtn">Добавить</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DIRECTOR -->
+    <div id="directorView" style="display:none" class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-weight:800">Кабинет директора</div>
+          <div class="note">Отчёты по сотрудникам и склад</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button id="dirBack" class="btn-ghost">Назад</button>
+        </div>
+      </div>
+      <div id="directorTables" style="margin-top:12px"></div>
+    </div>
+  </div>
+
+<script>
+const KEY = 'etihad_inventory_v3_full';
+const DEFAULT = {
+  users:[
+    {id:'od1',login:'odina',password:'1234',name:'Одина',role:'barista'},
+    {id:'m_abd',login:'abdulloh',password:'1111',name:'Абдуллох',role:'manager'},
+    {id:'m_amr',login:'amr',password:'2222',name:'Амр',role:'manager'},
+    {id:'m_mub',login:'mubina',password:'3333',name:'Мубина',role:'manager'},
+    {id:'m_sh',login:'shahnоza',password:'4444',name:'Шахноза',role:'manager'},
+    {id:'prov_ulug',login:'ulugbek',password:'prov123',name:'Улугбек',role:'provincer'},
+    {id:'dir1',login:'khurshid',password:'0000',name:'Хуршид',role:'director'}
+  ],
+  rawItems:[
+    {id:'coffee_beans',name:'Кофейные зёрна',unit:'g',parLevel:2000},
+    {id:'tea_black',name:'Чёрный чай (шт)',unit:'шт',parLevel:50},
+    {id:'tea_green',name:'Зелёный чай (шт)',unit:'шт',parLevel:50},
+    {id:'orange_juice',name:'Апельсиновый сок (шт)',unit:'шт',parLevel:20}
+  ],
+  menu:[
+    {id:'c1',title:'Чёрный чай',cat:'Чай',consumption:[{rawId:'tea_black',amount:1}]},
+    {id:'c2',title:'Зелёный чай',cat:'Чай',consumption:[{rawId:'tea_green',amount:1}]},
+    {id:'c3',title:'Эспрессо',cat:'Кофе',consumption:[{rawId:'coffee_beans',amount:10}]},
+    {id:'c4',title:'Капучино',cat:'Кофе',consumption:[{rawId:'coffee_beans',amount:12}]},
+    {id:'c5',title:'Апельсиновый сок',cat:'Соки',consumption:[{rawId:'orange_juice',amount:1}]}
+  ],
+  inventory:[
+    {id:'inv1',provId:'prov_ulug',rawId:'coffee_beans',qty:2000,arrivedAt:Date.now()-3600*1000},
+    {id:'inv2',provId:'prov_ulug',rawId:'orange_juice',qty:20,arrivedAt:Date.now()-3600*1000},
+    {id:'inv3',provId:'prov_ulug',rawId:'tea_black',qty:50,arrivedAt:Date.now()-3600*1000},
+    {id:'inv4',provId:'prov_ulug',rawId:'tea_green',qty:50,arrivedAt:Date.now()-3600*1000}
+  ],
+  sessions:[],
+  audit:[]
+};
+
+function loadRaw(){try{return JSON.parse(localStorage.getItem(KEY));}catch(e){return null}}
+function saveState(s){localStorage.setItem(KEY,JSON.stringify(s));}
+function now(){return Date.now();}
+function load(){let raw=loadRaw();if(!raw){saveState(DEFAULT);return JSON.parse(JSON.stringify(DEFAULT));}raw.users=Array.isArray(raw.users)?raw.users:DEFAULT.users.slice();raw.rawItems=Array.isArray(raw.rawItems)?raw.rawItems:DEFAULT.rawItems.slice();raw.menu=Array.isArray(raw.menu)?raw.menu:DEFAULT.menu.slice();raw.inventory=Array.isArray(raw.inventory)?raw.inventory:DEFAULT.inventory.slice();raw.sessions=Array.isArray(raw.sessions)?raw.sessions:[];raw.audit=Array.isArray(raw.audit)?raw.audit:[];raw.inventory=raw.inventory.map(i=>({id:i.id||( 'inv'+Date.now()+Math.random().toString(36).slice(2,6)),provId:i.provId||'prov_unknown',rawId:i.rawId,qty:Number(i.qty||0),arrivedAt:i.arrivedAt||Date.now()}));saveState(raw);return raw}
+
+let state=load();let currentUser=null;let selectedSessionId=null;let timers={};
+
+const loginCard=document.getElementById('loginCard');const mainView=document.getElementById('mainView');const provView=document.getElementById('provincerView');const directorView=document.getElementById('directorView');
+const loginInput=document.getElementById('loginInput');const passInput=document.getElementById('passInput');const loginBtn=document.getElementById('loginBtn');const demoBarista=document.getElementById('demoBarista');const demoProv=document.getElementById('demoProv');const demoDir=document.getElementById('demoDir');
+const whoName=document.getElementById('whoName');const newSessManager=document.getElementById('newSessManager');const newSessBtn=document.getElementById('newSessBtn');const sessionsArea=document.getElementById('sessionsArea');const menuGrid=document.getElementById('menuGrid');const recentLog=document.getElementById('recentLog');const stocksList=document.getElementById('stocksList');const resetBtn=document.getElementById('resetBtn');
+const provInventory=document.getElementById('provInventory');const provRawSelect=document.getElementById('provRawSelect');const provQty=document.getElementById('provQty');const provAddBtn=document.getElementById('provAddBtn');const provRefresh=document.getElementById('provRefresh');const directorTables=document.getElementById('directorTables');const provStocksList=document.getElementById('provStocksList');
+
+function findUserByLogin(l,p){return state.users.find(u=>String(u.login||'').trim().toLowerCase()===String(l||'').trim().toLowerCase()&&String(u.password||'')===String(p||''))}
+function findUserById(id){return state.users.find(u=>u.id===id)||{name:id||'—'}}
+function formatDur(sec){const h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;if(h>0)return`${h}ч ${m}м ${s}с`;return`${m}м ${s}с`}
+function totalRemaining(rawId){return state.inventory.filter(i=>i.rawId===rawId).reduce((s,i)=>s+(Number(i.qty)||0),0)}
+function pushAudit(rec){state.audit.unshift(Object.assign({at:now()},rec));if(state.audit.length>1200)state.audit.length=1200;saveState(state)}
+function canConsume(menuId,qty=1){const menuItem=state.menu.find(m=>m.id===menuId);if(!menuItem||!Array.isArray(menuItem.consumption))return true;for(const c of menuItem.consumption){const need=c.amount*qty;const total=totalRemaining(c.rawId);if(total<need)return false;}return true}
+function consumeForMenu(menuId,qty=1,actorId=null){const menuItem=state.menu.find(m=>m.id===menuId);if(!menuItem||!Array.isArray(menuItem.consumption))return true;if(!canConsume(menuId,qty))return false;for(const c of menuItem.consumption){let need=c.amount*qty;const pile=state.inventory.filter(inv=>inv.rawId===c.rawId).sort((a,b)=>(a.arrivedAt||0)-(b.arrivedAt||0));for(const slot of pile){if(need<=0)break;const take=Math.min(need,slot.qty);if(take>0){slot.qty=Math.round((slot.qty-take)*100)/100;pushAudit({type:'consume',actor:actorId||'system',menuId,rawId:c.rawId,amount:take,fromInv:slot.id})}need-=take}}state.inventory=state.inventory.filter(inv=>Number(inv.qty)>0);saveState(state);return true}
+
+function renderStocks(targetId='stocksList'){const container=document.getElementById(targetId);if(!container) return;container.innerHTML='';state.rawItems.forEach(raw=>{const current=totalRemaining(raw.id);const par=raw.parLevel||Math.max(1,current);const percent=Math.min(100,Math.round((current/par)*100));let barColor='linear-gradient(90deg,var(--brand-green),#24a86b)';if(percent<=20)barColor='linear-gradient(90deg,#d64545,#c43b3b)';else if(percent<=50)barColor='linear-gradient(90deg,#e6b83c,#d89d2b)';const wrap=document.createElement('div');wrap.style.marginBottom='8px';wrap.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-weight:700">${raw.name}</div><div style="font-size:13px">${current} ${raw.unit} · ${percent}%</div></div><div class="progress-wrap" style="margin-top:6px"><div class="progress"><i style="width:${percent}%;background:${barColor}"></i></div><div class="prog-text">${Math.round(percent)}%</div></div><div style="margin-top:6px" class="note"><button class="btn-ghost" data-raw="${raw.id}" data-action="reconcile">Ввести остаток (взвесил)</button></div>`;container.appendChild(wrap)});Array.from(container.querySelectorAll('button[data-action="reconcile"]')).forEach(b=>{b.addEventListener('click',()=>{const rawId=b.dataset.raw;const raw=state.rawItems.find(r=>r.id===rawId);const ans=prompt(`Введите фактический остаток для "${raw.name}" в ${raw.unit} (число):`,String(totalRemaining(rawId)));if(ans===null)return;const val=Number(ans);if(isNaN(val))return alert('Введите число');const current=totalRemaining(rawId);const diff=Math.round((val-current)*100)/100;if(diff===0)return alert('Разницы нет');if(diff>0){const rec={id:'inv_c_'+Date.now(),provId:'system',rawId,qty:Math.abs(diff),arrivedAt:Date.now()};state.inventory.push(rec);pushAudit({type:'reconcile_add',rawId,amount:diff,by:currentUser?currentUser.id:'unknown'})}else{let need=Math.abs(diff);const pile=state.inventory.filter(inv=>inv.rawId===rawId).sort((a,b)=>(a.arrivedAt||0)-(b.arrivedAt||0));for(const slot of pile){if(need<=0)break;const take=Math.min(need,slot.qty);if(take>0){slot.qty=Math.round((slot.qty-take)*100)/100;pushAudit({type:'reconcile_sub',rawId,amount:take,fromInv:slot.id,by:currentUser?currentUser.id:'unknown'})}need-=take}state.inventory=state.inventory.filter(inv=>Number(inv.qty)>0)}saveState(state);renderStocks(targetId);renderProvInventory();renderSessions();renderDirectorTables();alert('Корректировка выполнена')})})}
+
+function renderProvInventory(){let html='<table style="width:100%"><thead><tr><th>Пров</th><th>Сырьё</th><th>Остаток</th><th>Пришло</th></tr></thead><tbody>';const sorted=state.inventory.slice().sort((a,b)=>(b.arrivedAt||0)-(a.arrivedAt||0));sorted.forEach(r=>{const prov=findUserById(r.provId).name||r.provId;const raw=state.rawItems.find(x=>x.id===r.rawId)?.name||r.rawId;html+=`<tr><td>${prov}</td><td>${raw}</td><td>${r.qty}</td><td>${new Date(r.arrivedAt).toLocaleString()}</td></tr>`});html+='</tbody></table>';provInventory.innerHTML=html;provRawSelect.innerHTML='';state.rawItems.forEach(r=>{const o=document.createElement('option');o.value=r.id;o.textContent=r.name;provRawSelect.appendChild(o)})}
+
+function renderMenu(){menuGrid.innerHTML='';state.menu.forEach(it=>{const el=document.createElement('div');el.className='menu-item';el.dataset.id=it.id;el.innerHTML=`<div>${it.title}</div><small>${it.cat}</small>`;menuGrid.appendChild(el)})}
+function renderManagersList(){newSessManager.innerHTML='';state.users.filter(u=>u.role==='manager').forEach(m=>{const o=document.createElement('option');o.value=m.id;o.textContent=m.name;newSessManager.appendChild(o)})}
+function clearTimers(){Object.keys(timers).forEach(k=>{clearInterval(timers[k]);delete timers[k]})}
+
+function renderSessions(){clearTimers();sessionsArea.innerHTML='';const active=state.sessions.filter(s=>s.status==='active');const waiting=state.sessions.filter(s=>s.status==='waiting');const finished=state.sessions.filter(s=>s.status==='finished').slice(-8).reverse();const list=[...active,...waiting,...finished];list.forEach(s=>sessionsArea.appendChild(createSessionCard(s)))}
+
+function createSessionCard(s){const card=document.createElement('div');card.className='sess-card'+(selectedSessionId===s.sid&&s.status==='active'?' active':'')+(s.status==='waiting'?' waiting':'');card.dataset.sid=s.sid;const userName=findUserById(s.userId).name;const managerName=findUserById(s.managerId).name||'—';const createdLabel=s.createdAt?new Date(s.createdAt).toLocaleTimeString():'-';const statusLabel=s.status==='waiting'?'Ожидание':(s.status==='active'?'В обслуживании':'Завершено');card.innerHTML=`<div class="sess-title">${userName}</div><div class="sess-meta">${managerName} · ${statusLabel} · ${createdLabel}</div>`;const items=document.createElement('div');items.className='sess-items';items.textContent=(s.items||[]).map(it=>it.title).join(', ')||'(пусто)';card.appendChild(items);const ctr=document.createElement('div');ctr.className='sess-controls';ctr.addEventListener('click', function(e){ e.stopPropagation(); });card.appendChild(ctr);const footer=document.createElement('div');footer.className='sess-meta';footer.innerHTML='';card.appendChild(footer);
+
+if(s.status==='waiting'){const waitedSec=s.createdAt?Math.round((now()-s.createdAt)/1000):0;const waitedEl=document.createElement('div');waitedEl.className='sess-meta';waitedEl.style.fontWeight='700';waitedEl.style.marginRight='6px';waitedEl.textContent='Ждет: '+formatDur(waitedSec);ctr.appendChild(waitedEl);const startBtn=document.createElement('button');startBtn.textContent='Начать обслуживание';startBtn.style.padding='6px 8px';startBtn.style.fontSize='13px';startBtn.addEventListener('click',ev=>{ev.stopPropagation();startServiceForSession(s.sid)});ctr.appendChild(startBtn);timers[s.sid]=setInterval(()=>{const elMeta=card.querySelector('.sess-meta');if(elMeta){const waitedNow=s.createdAt?Math.round((now()-s.createdAt)/1000):0;elMeta.textContent=`${managerName} · ${statusLabel} · ${createdLabel} · Ждет ${formatDur(waitedNow)}`}},1000)} else if(s.status==='active'){const chkWrap=document.createElement('label');chkWrap.style.display='flex';chkWrap.style.alignItems='center';chkWrap.style.gap='8px';chkWrap.style.fontSize='13px';const input=document.createElement('input');input.type='checkbox';input.dataset.sid=s.sid;input.title='Поставьте галочку если стол очищен';input.checked=!!s.readyToFinish;const span=document.createElement('span');span.textContent='Стол очищен';chkWrap.appendChild(input);chkWrap.appendChild(span);ctr.appendChild(chkWrap);const finishBtn=document.createElement('button');finishBtn.textContent='Завершить';finishBtn.style.padding='6px 8px';finishBtn.style.fontSize='13px';finishBtn.disabled=!input.checked;finishBtn.addEventListener('click',ev=>{ev.stopPropagation();finishSessionWithCheck(s.sid)});ctr.appendChild(finishBtn);const timerEl=document.createElement('div');timerEl.className='sess-meta';timerEl.style.fontWeight='700';timerEl.style.marginLeft='6px';ctr.appendChild(timerEl);input.addEventListener('change',ev=>{const checked=!!ev.target.checked;const ss=state.sessions.find(x=>x.sid===s.sid);if(ss){ss.readyToFinish=checked;saveState(state)}finishBtn.disabled=!checked});function updateActiveTimer(){const ss=state.sessions.find(x=>x.sid===s.sid);if(!ss||ss.status!=='active'){if(timers[s.sid]){clearInterval(timers[s.sid]);delete timers[s.sid]}return}const tEl=timerEl;const timeLabel=ss.started?new Date(ss.started).toLocaleTimeString():(ss.createdAt?new Date(ss.createdAt).toLocaleTimeString():'-');const elapsed=ss.started?formatDur(Math.round((Date.now()-ss.started)/1000)):'-';tEl.textContent=`${managerName} · ${timeLabel} · ${elapsed}`}updateActiveTimer();timers[s.sid]=setInterval(updateActiveTimer,1000)} else {const endedAt=s.ended?new Date(s.ended).toLocaleTimeString():'-';const dur=s.duration?formatDur(s.duration):'-';const waited=s.waitedSeconds?formatDur(s.waitedSeconds):'-';const footerEl=document.createElement('div');footerEl.className='sess-meta';footerEl.innerHTML=`Завершено: ${endedAt} · ${dur} · Ожидал: ${waited}`;ctr.appendChild(footerEl)}
+if(s.status!=='finished'){
+  card.addEventListener('click',(e)=>{selectedSessionId=s.sid;renderSessions();});
+}
+return card}
+
+let lastNewAt=0;function startNewSession(managerId){if(Date.now()-lastNewAt<700)return;lastNewAt=Date.now();if(!currentUser)return alert('Не авторизован');if(!managerId)return alert('Выберите менеджера');const hasActive=state.sessions.some(x=>x.managerId===managerId&&x.status==='active');const sid='s'+(Date.now()+Math.floor(Math.random()*999));const nowTs=now();const status=hasActive?'waiting':'active';const s={sid,userId:currentUser.id,managerId,createdAt:nowTs,started:status==='active'?nowTs:null,waitedSeconds:0,ended:null,duration:null,status,items:[],readyToFinish:false};state.sessions.push(s);saveState(state);if(status==='active')selectedSessionId=sid;renderSessions();renderRecentLog();renderDirectorTables();renderStocks();renderProvInventory()}
+function startServiceForSession(sid){const s=state.sessions.find(x=>x.sid===sid);if(!s)return;if(s.status!=='waiting')return;s.started=now();s.waitedSeconds=Math.round((s.started-(s.createdAt||s.started))/1000);s.status='active';saveState(state);selectedSessionId=sid;renderSessions();renderRecentLog();renderDirectorTables();renderStocks()}
+function finishSessionWithCheck(sid){const s=state.sessions.find(x=>x.sid===sid);if(!s)return;if(!s.readyToFinish)return alert('Поставьте галочку \"Стол очищен\"');finishSession(sid)}
+function finishSession(sid){const s=state.sessions.find(x=>x.sid===sid);if(!s)return;if(!s.ended){s.ended=now();s.duration=Math.round((s.ended-(s.started||s.createdAt))/1000);if(!s.waitedSeconds&&s.started&&s.createdAt)s.waitedSeconds=Math.round((s.started-s.createdAt)/1000);s.status='finished';saveState(state)}if(selectedSessionId===sid)selectedSessionId=null;renderSessions();renderRecentLog();renderDirectorTables();renderStocks()}
+
+function addItemToSession(itemId){const item=state.menu.find(m=>m.id===itemId);if(!item)return;let target=state.sessions.find(s=>s.sid===selectedSessionId&&s.status!=='finished');if(!target){const actives=state.sessions.filter(s=>s.status==='active');target=actives.length?actives[actives.length-1]:null}if(!target){const waitings=state.sessions.filter(s=>s.status==='waiting');target=waitings.length?waitings[waitings.length-1]:null}if(!target){alert('Нет открытой сессии. Создайте новую.');return}const ok=consumeForMenu(itemId,1,currentUser?currentUser.id:'unknown');if(!ok){return alert('Недостаточно запасов сырья для этого напитка. Сообщите провинцеру.')}target.items.push({title:item.title,at:now(),menuId:item.id});saveState(state);renderSessions();renderRecentLog();renderDirectorTables();renderStocks();renderProvInventory()}
+
+function renderRecentLog(){const rows=state.sessions.slice().reverse().slice(0,10);if(!rows.length){recentLog.textContent='Пока пусто';return}let html='<div class=\"table-wrap\"><table style=\"width:100%\"><thead><tr><th>Сотрудник</th><th>Менеджер</th><th>Время</th><th>Статус</th><th>Позиции</th></tr></thead><tbody>';rows.forEach(s=>{const user=findUserById(s.userId)?.name||'-';const manager=findUserById(s.managerId)?.name||'-';const time=s.createdAt?new Date(s.createdAt).toLocaleString():'-';const status=s.status==='active'?'в работе':(s.status==='waiting'?'ожидание':(s.status==='finished'?'завершено':'-'));const items=(s.items||[]).map(it=>it.title).join(', ')||'-';html+=`<tr><td>${user}</td><td>${manager}</td><td>${time}</td><td>${status}</td><td>${items}</td></tr>`});html+='</tbody></table></div>';recentLog.innerHTML=html}
+
+function renderDirectorTables(){let html='<div style=\"margin-bottom:12px\"><h3>Склад (сводка)</h3>';state.rawItems.forEach(r=>{html+=`<div style=\"margin-bottom:6px\"><b>${r.name}</b>: ${totalRemaining(r.id)} ${r.unit}</div>`});html+='</div>';html+='<div style=\"margin-top:12px\"><h3>Журнал (последние действия)</h3><div class=\"table-wrap\"><table style=\"width:100%\"><thead><tr><th>Время</th><th>Действие</th><th>Детали</th></tr></thead><tbody>';state.audit.slice(0,200).forEach(a=>{const t=new Date(a.at).toLocaleString();let action=a.type;let details='';if(a.type==='supply'){action='Поставка';const prov=findUserById(a.provId).name||a.provId;const raw=state.rawItems.find(x=>x.id===a.rawId)?.name||a.rawId;details=`${prov} привёз ${a.amount} ${raw}`}else if(a.type==='consume'){action='Списание';const actor=findUserById(a.actor).name||a.actor;const raw=state.rawItems.find(x=>x.id===a.rawId)?.name||a.rawId;const menu=state.menu.find(m=>m.id===a.menuId)?.title||a.menuId;details=`${actor} — ${menu} → -${a.amount} ${raw}`}else if(a.type==='reconcile_add'){action='Корректировка +';const raw=state.rawItems.find(x=>x.id===a.rawId)?.name||a.rawId;details=`Ручная корректировка: +${a.amount} ${raw} (внес: ${findUserById(a.by).name||a.by})`}else if(a.type==='reconcile_sub'){action='Корректировка -';const raw=state.rawItems.find(x=>x.id===a.rawId)?.name||a.rawId;details=`Ручная корректировка: -${a.amount} ${raw} (внес: ${findUserById(a.by).name||a.by})`}else{details=JSON.stringify(a)}html+=`<tr><td style=\"white-space:nowrap\">${t}</td><td>${action}</td><td>${details}</td></tr>`});html+='</tbody></table></div></div>';directorTables.innerHTML=html}
+
+loginBtn.addEventListener('click',()=>{const l=String(loginInput.value||'').trim().toLowerCase();const p=String(passInput.value||'');if(!l||!p){alert('Введите логин и пароль');return}const user=findUserByLogin(l,p);if(!user){alert('Неверный логин/пароль');return}currentUser=user;loginCard.style.display='none';if(user.role==='barista'){mainView.style.display='block';provView.style.display='none';directorView.style.display='none';whoName.textContent=user.name;renderManagersList();renderMenu();renderSessions();renderRecentLog();renderStocks();renderProvInventory()}else if(user.role==='provincer'){mainView.style.display='none';provView.style.display='block';directorView.style.display='none';renderProvInventory();renderStocks('provStocksList')}else if(user.role==='director'){mainView.style.display='none';provView.style.display='none';directorView.style.display='block';renderDirectorTables();renderStocks();renderProvInventory()}else{alert('Роль не поддерживается')}})
+
+demoBarista.addEventListener('click',()=>{loginInput.value='odina';passInput.value='1234';loginBtn.click()});
+demoProv.addEventListener('click',()=>{loginInput.value='ulugbek';passInput.value='prov123';loginBtn.click()});
+demoDir.addEventListener('click',()=>{loginInput.value='khurshid';passInput.value='0000';loginBtn.click()});
+
+newSessBtn.addEventListener('click',()=>{const m=newSessManager.value;if(!m)return alert('Выберите менеджера');startNewSession(m)});
+menuGrid.addEventListener('click',e=>{const el=e.target.closest('.menu-item');if(!el)return;addItemToSession(el.dataset.id)});
+resetBtn.addEventListener('click',()=>{if(!confirm('Сбросить все данные приложения (включая склад)?'))return;localStorage.removeItem(KEY);state=load();location.reload()});
+provAddBtn.addEventListener('click',()=>{const rawId=provRawSelect.value;const qty=Number(provQty.value||0);if(!rawId||qty<=0)return alert('Выберите сырьё и укажите количество (число)');const rec={id:'inv_'+Date.now(),provId:currentUser?currentUser.id:'prov_manual',rawId,qty:Math.round(qty*100)/100,arrivedAt:Date.now()};state.inventory.push(rec);pushAudit({type:'supply',provId:rec.provId,rawId,amount:rec.qty});saveState(state);provQty.value='';renderProvInventory();renderStocks();renderSessions();renderDirectorTables();alert('Поставка добавлена')});
+provRefresh.addEventListener('click',()=>{renderProvInventory();renderStocks('provStocksList')});
+
+// Back / logout buttons
+const logoutBtnEl=document.getElementById('logoutBtn');const helpBack=document.getElementById('helpBack');const provBack=document.getElementById('provBack');const dirBack=document.getElementById('dirBack');
+helpBack.addEventListener('click',()=>{alert('Это кнопка назад. Если нужно, укажи куда возвращаться (например: главная).')});
+logoutBtnEl.addEventListener('click',()=>{if(!confirm('Выйти?'))return;currentUser=null;loginCard.style.display='block';mainView.style.display='none';provView.style.display='none';directorView.style.display='none';loginInput.value='';passInput.value='';selectedSessionId=null});
+provBack.addEventListener('click',()=>{provView.style.display='none';loginCard.style.display='block';currentUser=null});
+dirBack.addEventListener('click',()=>{directorView.style.display='none';loginCard.style.display='block';currentUser=null});
+
+// initial render
+renderManagersList();renderMenu();renderStocks();renderProvInventory();console.log('etihad final built');
+</script>
+</body>
+</html>
