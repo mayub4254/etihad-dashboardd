@@ -428,6 +428,8 @@ function createSessionCard(s){
   card.appendChild(items);
 
   const ctr = document.createElement('div'); ctr.className='sess-controls';
+    // предотвращаем всплытие кликов из области управления (чекбокс/кнопки)
+  ctr.addEventListener('click', function(e){ e.stopPropagation(); });
 
   if(s.status === 'waiting'){
     const waitedSec = s.createdAt ? Math.round((now() - s.createdAt)/1000) : 0;
