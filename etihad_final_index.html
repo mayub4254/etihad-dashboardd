@@ -4,7 +4,49 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>etihadmenu.uz — Кабинет (финальная версия)</title>
-<style>* {
+<style>* /* === АДАПТИВ ДЛЯ ТЕЛЕФОНОВ (очень важно) === */
+
+@media (max-width: 480px) {
+
+    h1, h2, h3 {
+        font-size: 18px;
+    }
+
+    .card, .brand, .inventory-item {
+        padding: 12px;
+    }
+
+    button, select {
+        font-size: 14px;
+        padding: 10px 14px;
+    }
+
+    .inventory-row {
+        flex-direction: column; 
+        gap: 4px;
+        align-items: flex-start;
+    }
+
+    .progress-bar {
+        height: 10px;
+    }
+
+    .progress-container {
+        width: 100%;
+    }
+}
+
+/* Запретить выход элементов за границы */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+{
     box-sizing: border-box;
 }
 
